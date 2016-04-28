@@ -342,8 +342,6 @@ process (actual_state)
 				rw_memo<='0';
 				cen_memo<='0';
 				end_decode_state<='1';
-
-
 			end case;
 			
 	 
