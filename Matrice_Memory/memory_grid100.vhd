@@ -43,7 +43,7 @@ end memory_grid100;
 architecture Behavioral of memory_grid100 is
 
 type tab is array(0 to 99) of std_logic_vector(3 downto 0);
-signal tableau :tab :=("1001","0010","0011","0100","0101","0110","0111","1000",others=>"1001");
+signal tableau :tab :=("0000","0001","0010","0011","0100","0101","0110","0111","1000","1001",others=>"1011");
 signal data_out_tmp : std_logic_vector ( 3 downto 0);
 
 --init tab
