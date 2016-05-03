@@ -44,10 +44,16 @@ constant k: integer:= 9;
 
 begin
 
-process(clk)
+process(clk,rst)
 	begin
-
-	sig_out <= k*to_integer(unsigned(posY))+to_integer(unsigned(posX));
+		if (rst='1') then
+		
+			sig_out<=0;
+	
+		elsif rising_edge(clk) then
+			sig_out <= k*to_integer(unsigned(posY))+to_integer(unsigned(posX));
+			--sig_out<=2;
+		end if;
 	
 end process;
 

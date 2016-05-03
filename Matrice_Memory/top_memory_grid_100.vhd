@@ -32,17 +32,18 @@ use IEEE.NUMERIC_STD.ALL;
 entity top_memory_grid_100 is
     Port ( 	clk : in  STD_LOGIC;
            	rst : in  STD_LOGIC;
-		sel : in STD_LOGIC;
+				sel : in STD_LOGIC;
            	posX : in  STD_LOGIC_VECtOR(3 downto 0);
-		posY : in  STD_LOGIC_VECtOR(3 downto 0);
+				posY : in  STD_LOGIC_VECtOR(3 downto 0);
 
 
-		data_in_decode : in  STD_LOGIC_VECTOR (6 downto 0);
-		addr_decode : in  STD_LOGIC_VECTOR (5 downto 0);
-		write_decode : in  STD_LOGIC;
-		enable_memory_decode : in  STD_LOGIC;
+				addr_decode : in  STD_LOGIC_VECTOR (6 downto 0);
+				data_in_decode : in  STD_LOGIC_VECTOR (5 downto 0);
+				write_decode : in  STD_LOGIC;
+				enable_memory_decode : in  STD_LOGIC;
 
-		data_out : out  STD_LOGIC_VECTOR (6 downto 0));
+				--data_out : out  STD_LOGIC_VECTOR (5 downto 0));
+				data_out : out  STD_LOGIC_VECTOR (3 downto 0));
   
 end top_memory_grid_100;
 
@@ -55,9 +56,11 @@ component memory_grid100 is
            rst : in  STD_LOGIC;
            enable_memory : in  STD_LOGIC;
            read_write : in  STD_LOGIC;
-           mem_add : in  STD_LOGIC_VECTOR (5 downto 0);
-           data_in : in  STD_LOGIC_VECTOR (6 downto 0);
-           data_out : out  STD_LOGIC_VECTOR (6 downto 0));
+           data_in : in  STD_LOGIC_VECTOR (5 downto 0);
+           mem_add : in  STD_LOGIC_VECTOR (6 downto 0);
+           --data_out : out  STD_LOGIC_VECTOR (5 downto 0));
+			  data_out : out  STD_LOGIC_VECTOR (3 downto 0));
+
 end component memory_grid100;
 
 component pos_to_add is
@@ -70,23 +73,23 @@ end component pos_to_add;
 
 component mux_memory is
     Port ( 	selection : in STD_LOGIC;
-		input_data_in_decode: in  STD_LOGIC_VECTOR (6 downto 0);
+		input_data_in_decode: in  STD_LOGIC_VECTOR (5 downto 0);
 		
-		input_addr_pos: in  STD_LOGIC_VECTOR (5 downto 0);
-		input_addr_decode : in  STD_LOGIC_VECTOR (5 downto 0);
+		input_addr_pos: in  STD_LOGIC_VECTOR (6 downto 0);
+		input_addr_decode : in  STD_LOGIC_VECTOR (6 downto 0);
 
 		input_write_decode : in  STD_LOGIC;
 		input_enable_memory_decode : in  STD_LOGIC;
 		
-		output_data_in : out  STD_LOGIC_VECTOR (6 downto 0);
-		output_addr : out  STD_LOGIC_VECTOR (5 downto 0);
+		output_data_in : out  STD_LOGIC_VECTOR (5 downto 0);
+		output_addr : out  STD_LOGIC_VECTOR (6 downto 0);
 		output_write: out  STD_LOGIC;
 		output_enable_memory: out STD_LOGIC);
 end component mux_memory ;
 
 
-signal sig_data_in : STD_LOGIC_VECTOR(6 downto 0);
-signal sig_add_in,sig_add_pos : STD_LOGIC_VECTOR(5 downto 0);
+signal sig_data_in : STD_LOGIC_VECTOR(5 downto 0);
+signal sig_add_in,sig_add_pos : STD_LOGIC_VECTOR(6 downto 0);
 signal sig_mem_write,sig_enable_memory: STD_LOGIC;
 
   
@@ -94,32 +97,32 @@ begin
 
 
 Memory : memory_grid100 port map ( 	clk => clk,
-				   	rst => rst,
-				   	enable_memory => sig_enable_memory,
-				   	read_write => sig_mem_write,
-				   	mem_add => sig_add_in,
-				   	data_in => sig_data_in,
-				   	data_out => data_out);
+												rst => rst,
+												enable_memory => sig_enable_memory,
+												read_write => sig_mem_write,
+												mem_add => sig_add_in,
+												data_in => sig_data_in,
+												data_out => data_out);
 
 Converter : pos_to_add port map ( 	   clk => clk,
-				   	   rst => rst,
-					   posX => posX,
-					   posY => posY,
-					   adress => sig_add_pos);
+													rst => rst,
+													posX => posX,
+													posY => posY,
+													adress => sig_add_pos);
 
 Mux : mux_memory port map ( 	selection => sel,
-				input_data_in_decode => data_in_decode,
-		
-				input_addr_pos => sig_add_pos,
-				input_addr_decode => addr_decode,
+										input_data_in_decode => data_in_decode,
+								
+										input_addr_pos => sig_add_pos,
+										input_addr_decode => addr_decode,
 
-				input_write_decode => write_decode,
-				input_enable_memory_decode => enable_memory_decode,
-		
-				output_data_in => sig_data_in,
-				output_addr => sig_add_in,
-				output_write => sig_mem_write,
-				output_enable_memory=> sig_enable_memory);			
+										input_write_decode => write_decode,
+										input_enable_memory_decode => enable_memory_decode,
+								
+										output_data_in => sig_data_in,
+										output_addr => sig_add_in,
+										output_write => sig_mem_write,
+										output_enable_memory=> sig_enable_memory);			
 															       
 
 

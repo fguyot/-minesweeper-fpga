@@ -36,7 +36,7 @@ architecture Behavioral of top_create_grid is
   end component register_10bit_stat ;
 
 
-constant l0_cst : std_logic_vector(9 downto 0) :="1000100101";
+constant l0_cst : std_logic_vector(9 downto 0) :="1100100101";
 constant l1_cst : std_logic_vector(9 downto 0) :="0000000000";
 constant l2_cst : std_logic_vector(9 downto 0) :="0000000000";
 constant l3_cst : std_logic_vector(9 downto 0) :="0000000000";

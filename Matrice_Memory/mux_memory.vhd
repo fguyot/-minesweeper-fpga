@@ -31,40 +31,41 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity mux_memory is
    Port ( 	selection : in STD_LOGIC;
-		input_data_in_decode: in  STD_LOGIC_VECTOR (6 downto 0);
+		input_data_in_decode: in  STD_LOGIC_VECTOR (5 downto 0);
 		
-		input_addr_pos: in  STD_LOGIC_VECTOR (5 downto 0);
-		input_addr_decode : in  STD_LOGIC_VECTOR (5 downto 0);
+		input_addr_pos: in  STD_LOGIC_VECTOR (6 downto 0);
+		input_addr_decode : in  STD_LOGIC_VECTOR (6 downto 0);
 
 		input_write_decode : in  STD_LOGIC;
 		input_enable_memory_decode : in  STD_LOGIC;
 		
-		output_data_in : out  STD_LOGIC_VECTOR (6 downto 0);
-		output_addr : out  STD_LOGIC_VECTOR (5 downto 0);
+		output_data_in : out  STD_LOGIC_VECTOR (5 downto 0);
+		output_addr : out  STD_LOGIC_VECTOR (6 downto 0);
 		output_write: out  STD_LOGIC;
 		output_enable_memory: out STD_LOGIC);
 end mux_memory ;
 
 architecture Behavioral of mux_memory is
 
-signal output_data_tmp : STD_LOGIC_VECTOR(6 downto 0);
-signal output_addr_tmp : STD_LOGIC_VECTOR(5 downto 0);
+signal output_data_tmp : STD_LOGIC_VECTOR(5 downto 0);
+signal output_addr_tmp : STD_LOGIC_VECTOR(6 downto 0);
 signal output_write_tmp, output_enable_memory_tmp : STD_LOGIC;
 
 begin
-	process(selection,input_data_in_decode,input_addr_decode,input_write_decode,input_enable_memory_decode,input_addr_decode)
+	process(selection,input_data_in_decode,input_addr_decode,input_addr_pos,input_write_decode,input_enable_memory_decode)
 		begin 
 		if selection = '0' then 	--first	register			
+			output_data_tmp <= "000000";
+			output_addr_tmp <=input_addr_pos;
+			output_write_tmp <='0';
+			output_enable_memory_tmp <='1';
+
+		else
+			
 			output_data_tmp <= input_data_in_decode;
 			output_addr_tmp <=input_addr_decode;
 			output_write_tmp <=input_write_decode;
 			output_enable_memory_tmp <=input_enable_memory_decode ;
-
-		else
-			output_data_tmp <= "0000000";
-			output_addr_tmp <=input_addr_decode;
-			output_write_tmp <='0';
-			output_enable_memory_tmp <='1';
 
 		end if;
 	end process;
