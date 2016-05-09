@@ -54,7 +54,7 @@ end states_machine_decode;
 
 architecture Behavioral of states_machine_decode is
 
-	type states is (init,first_reg_load, inc_reg, reg_load, decode, save, next_step, end_fms_decode);
+	type states is (init,first_reg_load, inc_reg, reg_load, decode, save, next_step,inc_line,inc_col, end_fms_decode);
 	
 	signal actual_state : states;
 	signal next_state : states;
@@ -99,23 +99,29 @@ architecture Behavioral of states_machine_decode is
 
 			when next_step =>
 
-				if( cpt_col=9) then --END OF A LINE
+				if( cpt_col>8) then --END OF A LINE
 				
-					if( cpt_line=9) then	--LAST LINE
+					if( cpt_line>8) then	--LAST LINE
 
 						next_state<= end_fms_decode;
 					
 					else
 
-						next_state<= inc_reg;
+						next_state<= inc_line;
 
 					end if;
 
 				else
 
-					next_state<= decode;
+					next_state<= inc_col;
 
 				end if;
+				
+			when inc_line =>
+				next_state<= inc_reg;
+				
+			when inc_col =>
+				next_state<= decode;
 
 			when end_fms_decode =>
 				next_state<= end_fms_decode;
@@ -289,40 +295,55 @@ process (actual_state)
 				rst_reg<='0';
 				cen_inc_reg<='0';
 				rst_inc_reg<='0';
-				rst_cpt_line<='0';
 				ce_add_conv<='0';
 				rst_add_conv<='0';
 				rst_decod<='0';
 				en_decod<='0';
 				rw_memo<='0';
 				cen_memo<='0';
-
-				if( cpt_col=9) then --END OF A LINE
+				en_cpt_col<='0';
+				en_cpt_line<='0';
+				end_decode_state<='0';
+				rst_cpt_col<='0';
+				rst_cpt_line<='0';
 				
-					if( cpt_line=9) then	--LAST LINE
-
-						en_cpt_col<='0';
-						en_cpt_line<='0';
-						end_decode_state<='1';
-						rst_cpt_col<='0';
-					
-					else
-
-						en_cpt_col<='0';
-						en_cpt_line<='1';
-						end_decode_state<='0';
-						rst_cpt_col<='1';
-
-					end if;
-
-				else
-
-					en_cpt_col<='1';
-					en_cpt_line<='0';
-					end_decode_state<='0';
-					rst_cpt_col<='0';
-
-				end if;
+				
+				
+			when inc_line =>
+				cen_reg<='0';
+				load_reg<='0';
+				rst_reg<='0';
+				cen_inc_reg<='0';
+				rst_inc_reg<='0';
+				rst_cpt_col<='1';
+				en_cpt_col<='0';
+				rst_cpt_line<='0';
+				en_cpt_line<='1';
+				ce_add_conv<='0';
+				rst_add_conv<='0';
+				rst_decod<='0';
+				en_decod<='0';
+				rw_memo<='0';
+				cen_memo<='0';
+				end_decode_state<='0';
+				
+			when inc_col =>
+				cen_reg<='0';
+				load_reg<='0';
+				rst_reg<='0';
+				cen_inc_reg<='0';
+				rst_inc_reg<='0';
+				rst_cpt_col<='0';
+				en_cpt_col<='1';
+				rst_cpt_line<='0';
+				en_cpt_line<='0';
+				ce_add_conv<='0';
+				rst_add_conv<='0';
+				rst_decod<='0';
+				en_decod<='0';
+				rw_memo<='0';
+				cen_memo<='0';
+				end_decode_state<='0';
 
 			when end_fms_decode =>
 

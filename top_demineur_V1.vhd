@@ -41,7 +41,7 @@ entity top_demineur_V1 is
 				--en1				: in STD_LOGIC;
 				CE_env			: in STD_LOGIC;
 				--value				: in STD_LOGIC_VECTOR (3 downto 0);
-				LEDF 				: out STD_LOGIC_VECTOR (5 downto 0);
+				LEDF 				: out STD_LOGIC_VECTOR (6 downto 0);
 				led_env 				: out STD_LOGIC;
 				vga_hs 			: out  STD_LOGIC;
 				vga_vs 			: out  STD_LOGIC;
@@ -75,7 +75,7 @@ component top_grille_test is
 						posx : in STD_LOGIC_VECTOR (3 downto 0);
 						posy : in STD_LOGIC_VECTOR (3 downto 0);
 						--en1				: in STD_LOGIC;
-						LEDF : out STD_LOGIC_VECTOR (5 downto 0);
+						--LEDF : out STD_LOGIC_VECTOR (5 downto 0);
 						vga_hs : out  STD_LOGIC;
 						vga_vs : out  STD_LOGIC;
 						vga_red : out  STD_LOGIC_VECTOR (3 downto 0);
@@ -131,7 +131,7 @@ component top_decode_env is
 				line7 : in  STD_LOGIC_VECTOR (9 downto 0);
 				line8 : in  STD_LOGIC_VECTOR (9 downto 0);
 				line9 : in  STD_LOGIC_VECTOR (9 downto 0);
-
+				LEDF : out STD_LOGIC_VECTOR (6 downto 0);
 				add_memo: out  STD_LOGIC_VECTOR(6 downto 0);
 				data_memo : out  STD_LOGIC_VECTOR(3 downto 0);
 				en_memo : out  STD_LOGIC;
@@ -196,7 +196,7 @@ display_control : top_grille_test port map (  	clk => clk ,
 																posx =>  sig_pos_lr,
 																posy =>  sig_pos_ud,
 																--en1 => en1,
-																LEDF => LEDF,
+																--LEDF => LEDF,
 																vga_hs =>  vga_hs,
 																vga_vs => vga_vs ,
 																vga_red =>  vga_red,
@@ -244,7 +244,7 @@ Decode_grid : top_decode_env port map (  	clk => clk ,
 														line7 =>  sig_mem_l7,
 														line8 =>  sig_mem_l8,
 														line9 =>  sig_mem_l9,
-
+														LEDF=>    LEDF,
 														add_memo => sig_add_mem_matrice_in,
 														data_memo => sig_data_mem_matrice_in,
 														en_memo => sig_en_mem_matrice_in,

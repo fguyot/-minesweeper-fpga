@@ -40,7 +40,7 @@ end memory_adress_converter;
 
 architecture Behavioral of memory_adress_converter is
 
-signal sig_out : unsigned(7 downto 0);
+signal sig_out :integer range 0 to 100 := 0;
 constant k: integer:= 10;
 
 begin
@@ -51,12 +51,12 @@ process (clk, rst)
 
 			if (rst = '1') then
 			
-				sig_out<="00000000";
+				sig_out<=0;
 			elsif rising_edge(clk) then
 			
 				if (c_en = '1') then
 				
-					sig_out <=k*to_unsigned(line,4)+to_unsigned(column,4);
+					sig_out <=k*line+column;
 					
 				else
 			
@@ -73,7 +73,7 @@ process (clk, rst)
 
 	end process;
 
-adress<=std_logic_vector(sig_out(6 downto 0));
+adress<=std_logic_vector(to_unsigned(sig_out,7));
 
 end Behavioral;
 

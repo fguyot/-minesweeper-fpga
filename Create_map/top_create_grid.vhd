@@ -37,7 +37,7 @@ architecture Behavioral of top_create_grid is
 
 
 constant l0_cst : std_logic_vector(9 downto 0) :="0000000001";
-constant l1_cst : std_logic_vector(9 downto 0) :="0000001100";
+constant l1_cst : std_logic_vector(9 downto 0) :="1111111111";
 constant l2_cst : std_logic_vector(9 downto 0) :="0000000000";
 constant l3_cst : std_logic_vector(9 downto 0) :="0000010000";
 constant l4_cst : std_logic_vector(9 downto 0) :="0000000000";

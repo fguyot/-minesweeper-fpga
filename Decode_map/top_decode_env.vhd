@@ -43,7 +43,7 @@ entity top_decode_env is
 				line7 : in  STD_LOGIC_VECTOR (9 downto 0);
 				line8 : in  STD_LOGIC_VECTOR (9 downto 0);
 				line9 : in  STD_LOGIC_VECTOR (9 downto 0);
-
+				LEDF : out STD_LOGIC_VECTOR (6 downto 0);
 				add_memo: out  STD_LOGIC_VECTOR(6 downto 0);
 				data_memo : out  STD_LOGIC_VECTOR(3 downto 0);
 				en_memo : out  STD_LOGIC;
@@ -149,6 +149,7 @@ signal sig_in_reg_dec, sig_prev_line, sig_current_line, sig_next_line : STD_LOGI
 signal sig_sel_mux : STD_LOGIC_VECTOR (3 downto 0);
 signal sig_cpt_line, sig_cpt_col :  integer;
 signal sig_load_reg,sig_en_reg, sig_rst_reg, sig_cen_inc, sig_rst_inc, sig_rst_cpt_col, sig_en_cpt_col, sig_rst_cpt_line, sig_en_cpt_line, sig_ce_add_conv, sig_rst_add_conv,sig_ce_decode,sig_rst_decode, sig_raz_cpt_line, sig_raz_cpt_col : STD_LOGIC;
+signal sig_add_memo : STD_LOGIC_VECTOR (6 downto 0);
 
   
 begin
@@ -201,7 +202,7 @@ add_conv : memory_adress_converter port map ( 	clk => clk ,
 																rst =>  sig_rst_add_conv,
 																line => sig_cpt_line ,
 																column =>  sig_cpt_col,
-																adress => add_memo );
+																adress => sig_add_memo );
 
 decode_block : decod_new_grille port map ( 	clk => clk ,
 															rst => sig_rst_decode,
@@ -241,6 +242,9 @@ FSM_decode : states_machine_decode port map ( 	clock  =>  clk,
 																cen_memo  => en_memo ,
 																end_decode_state  => end_process_decod );
 					
+
+LEDF <= sig_add_memo;
+add_memo<=sig_add_memo;
 
 
 end Behavioral;
