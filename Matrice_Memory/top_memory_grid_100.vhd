@@ -38,7 +38,7 @@ entity top_memory_grid_100 is
 
 
 				addr_decode : in  STD_LOGIC_VECTOR (6 downto 0);
-				data_in_decode : in  STD_LOGIC_VECTOR (5 downto 0);
+				data_in_decode : in  STD_LOGIC_VECTOR (3 downto 0);
 				write_decode : in  STD_LOGIC;
 				enable_memory_decode : in  STD_LOGIC;
 
@@ -56,7 +56,7 @@ component memory_grid100 is
            rst : in  STD_LOGIC;
            enable_memory : in  STD_LOGIC;
            read_write : in  STD_LOGIC;
-           data_in : in  STD_LOGIC_VECTOR (5 downto 0);
+           data_in : in  STD_LOGIC_VECTOR (3 downto 0);
            mem_add : in  STD_LOGIC_VECTOR (6 downto 0);
            --data_out : out  STD_LOGIC_VECTOR (5 downto 0));
 			  data_out : out  STD_LOGIC_VECTOR (3 downto 0));
@@ -73,7 +73,7 @@ end component pos_to_add;
 
 component mux_memory is
     Port ( 	selection : in STD_LOGIC;
-		input_data_in_decode: in  STD_LOGIC_VECTOR (5 downto 0);
+		input_data_in_decode: in  STD_LOGIC_VECTOR (3 downto 0);
 		
 		input_addr_pos: in  STD_LOGIC_VECTOR (6 downto 0);
 		input_addr_decode : in  STD_LOGIC_VECTOR (6 downto 0);
@@ -81,14 +81,14 @@ component mux_memory is
 		input_write_decode : in  STD_LOGIC;
 		input_enable_memory_decode : in  STD_LOGIC;
 		
-		output_data_in : out  STD_LOGIC_VECTOR (5 downto 0);
+		output_data_in : out  STD_LOGIC_VECTOR (3 downto 0);
 		output_addr : out  STD_LOGIC_VECTOR (6 downto 0);
 		output_write: out  STD_LOGIC;
 		output_enable_memory: out STD_LOGIC);
 end component mux_memory ;
 
 
-signal sig_data_in : STD_LOGIC_VECTOR(5 downto 0);
+signal sig_data_in : STD_LOGIC_VECTOR(3 downto 0);
 signal sig_add_in,sig_add_pos : STD_LOGIC_VECTOR(6 downto 0);
 signal sig_mem_write,sig_enable_memory: STD_LOGIC;
 

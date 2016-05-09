@@ -30,8 +30,8 @@ entity states_machine_decode is
     Port (	clock : in  STD_LOGIC;
            	reset : in  STD_LOGIC;
 				CE : in  STD_LOGIC;
-				raz_cpt_col : in  STD_LOGIC;
-				raz_cpt_line : in  STD_LOGIC;
+				cpt_col : in  integer;
+				cpt_line : in  integer;
 				
 				cen_reg : out  STD_LOGIC;
 				load_reg : out  STD_LOGIC;
@@ -99,9 +99,9 @@ architecture Behavioral of states_machine_decode is
 
 			when next_step =>
 
-				if( raz_cpt_col='1') then --END OF A LINE
+				if( cpt_col=9) then --END OF A LINE
 				
-					if( raz_cpt_line='1') then	--LAST LINE
+					if( cpt_line=9) then	--LAST LINE
 
 						next_state<= end_fms_decode;
 					
@@ -297,9 +297,9 @@ process (actual_state)
 				rw_memo<='0';
 				cen_memo<='0';
 
-				if( raz_cpt_col='1') then --END OF A LINE
+				if( cpt_col=9) then --END OF A LINE
 				
-					if( raz_cpt_line='1') then	--LAST LINE
+					if( cpt_line=9) then	--LAST LINE
 
 						en_cpt_col<='0';
 						en_cpt_line<='0';

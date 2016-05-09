@@ -133,7 +133,7 @@ component top_decode_env is
 				line9 : in  STD_LOGIC_VECTOR (9 downto 0);
 
 				add_memo: out  STD_LOGIC_VECTOR(6 downto 0);
-				data_memo : out  STD_LOGIC_VECTOR(5 downto 0);
+				data_memo : out  STD_LOGIC_VECTOR(3 downto 0);
 				en_memo : out  STD_LOGIC;
 				read_write_memo : out  STD_LOGIC;
 				end_process_decod: out  STD_LOGIC);
@@ -149,7 +149,7 @@ component top_memory_grid_100 is
 
 
 				addr_decode : in  STD_LOGIC_VECTOR (6 downto 0);
-				data_in_decode : in  STD_LOGIC_VECTOR (5 downto 0);
+				data_in_decode : in  STD_LOGIC_VECTOR (3 downto 0);
 				write_decode : in  STD_LOGIC;
 				enable_memory_decode : in  STD_LOGIC;
 
@@ -167,7 +167,7 @@ signal sig_ce_bp,sig_dis_bp : STD_LOGIC;
 
 signal sig_add_mem_matrice_in : STD_LOGIC_VECTOR (6 downto 0);
 --signal sig_data_mem_matrice_in,sig_data_out_mem : STD_LOGIC_VECTOR (5 downto 0);
-signal sig_data_mem_matrice_in: STD_LOGIC_VECTOR (5 downto 0);
+signal sig_data_mem_matrice_in: STD_LOGIC_VECTOR (3 downto 0);
 signal sig_en_mem_matrice_in : STD_LOGIC;
 signal sig_rw_mem_matrice_in : STD_LOGIC;
 
@@ -214,42 +214,42 @@ ab_disc : anti_bounding port map (  	clock => clk ,
 													enable =>  discover_bp,
 													output =>  sig_dis_bp);	
 													
---Create_grid : top_create_grid port map (  	--input : in  STD_LOGIC_VECTOR (9 downto 0);          
---															clock => clk ,
---															--load : in STD_LOGIC;
---															--ce : in  STD_LOGIC;
---															reset =>  rst,
---															output_l0 =>  sig_mem_l0,
---															output_l1 =>  sig_mem_l1,
---															output_l2 =>  sig_mem_l2,
---															output_l3 =>  sig_mem_l3,
---															output_l4 =>  sig_mem_l4,
---															output_l5 =>  sig_mem_l5,
---															output_l6 =>  sig_mem_l6,
---															output_l7 =>  sig_mem_l7,
---															output_l8 =>  sig_mem_l8,
---															output_l9 =>  sig_mem_l9);
---															
---
---Decode_grid : top_decode_env port map (  	clk => clk ,
---														Ce => CE_env , -- a changer
---														rst =>  rst,
---														line0 =>  sig_mem_l0,
---														line1 =>  sig_mem_l1,
---														line2 =>  sig_mem_l2,
---														line3 =>  sig_mem_l3,
---														line4 =>  sig_mem_l4,
---														line5 =>  sig_mem_l5,
---														line6 =>  sig_mem_l6,
---														line7 =>  sig_mem_l7,
---														line8 =>  sig_mem_l8,
---														line9 =>  sig_mem_l9,
---
---														add_memo => sig_add_mem_matrice_in,
---														data_memo => sig_data_mem_matrice_in,
---														en_memo => sig_en_mem_matrice_in,
---														read_write_memo => sig_rw_mem_matrice_in,
---														end_process_decod => led_env); -- a changer
+Create_grid : top_create_grid port map (  	--input : in  STD_LOGIC_VECTOR (9 downto 0);          
+															clock => clk ,
+															--load : in STD_LOGIC;
+															--ce : in  STD_LOGIC;
+															reset =>  rst,
+															output_l0 =>  sig_mem_l0,
+															output_l1 =>  sig_mem_l1,
+															output_l2 =>  sig_mem_l2,
+															output_l3 =>  sig_mem_l3,
+															output_l4 =>  sig_mem_l4,
+															output_l5 =>  sig_mem_l5,
+															output_l6 =>  sig_mem_l6,
+															output_l7 =>  sig_mem_l7,
+															output_l8 =>  sig_mem_l8,
+															output_l9 =>  sig_mem_l9);
+															
+
+Decode_grid : top_decode_env port map (  	clk => clk ,
+														Ce => CE_env , -- a changer
+														rst =>  rst,
+														line0 =>  sig_mem_l0,
+														line1 =>  sig_mem_l1,
+														line2 =>  sig_mem_l2,
+														line3 =>  sig_mem_l3,
+														line4 =>  sig_mem_l4,
+														line5 =>  sig_mem_l5,
+														line6 =>  sig_mem_l6,
+														line7 =>  sig_mem_l7,
+														line8 =>  sig_mem_l8,
+														line9 =>  sig_mem_l9,
+
+														add_memo => sig_add_mem_matrice_in,
+														data_memo => sig_data_mem_matrice_in,
+														en_memo => sig_en_mem_matrice_in,
+														read_write_memo => sig_rw_mem_matrice_in,
+														end_process_decod => led_env); -- a changer
 
 Memory_bloc : top_memory_grid_100 port map (  	clk => clk ,
 																rst => rst ,

@@ -45,7 +45,7 @@ entity top_decode_env is
 				line9 : in  STD_LOGIC_VECTOR (9 downto 0);
 
 				add_memo: out  STD_LOGIC_VECTOR(6 downto 0);
-				data_memo : out  STD_LOGIC_VECTOR(5 downto 0);
+				data_memo : out  STD_LOGIC_VECTOR(3 downto 0);
 				en_memo : out  STD_LOGIC;
 				read_write_memo : out  STD_LOGIC;
 				end_process_decod: out  STD_LOGIC);
@@ -114,7 +114,7 @@ end component mux_reg_decod;
 					l_next : in  STD_LOGIC_VECTOR (9 downto 0);	--register with the next line 
 					cpt_col : in integer;	--counter col
 					cpt_line : in  integer;	--counter line
-					value : out  STD_LOGIC_VECTOR (5 downto 0);	--value to save in the memory
+					value : out  STD_LOGIC_VECTOR (3 downto 0);	--value to save in the memory
 					--raz_cpt_line : out  STD_LOGIC;	-- reset for the col counter
 					raz_cpt_col : out  STD_LOGIC);	-- reset for the col counter
 	end component decod_new_grille;
@@ -123,8 +123,8 @@ end component mux_reg_decod;
 		 Port (	clock : in  STD_LOGIC;
 					reset : in  STD_LOGIC;
 					CE : in  STD_LOGIC;
-					raz_cpt_col : in  STD_LOGIC;
-					raz_cpt_line : in  STD_LOGIC;
+					cpt_col : in  integer;
+					cpt_line : in  integer;
 					cen_reg : out  STD_LOGIC;
 					load_reg : out  STD_LOGIC;
 					rst_reg : out  STD_LOGIC;
@@ -219,8 +219,11 @@ decode_block : decod_new_grille port map ( 	clk => clk ,
 FSM_decode : states_machine_decode port map ( 	clock  =>  clk,
 																reset  => rst ,
 																CE  =>  Ce,
-																raz_cpt_col  => sig_raz_cpt_col ,
-																raz_cpt_line => sig_raz_cpt_line ,
+																
+																cpt_col =>sig_cpt_col ,
+																cpt_line =>sig_cpt_line ,
+																--raz_cpt_col  => sig_raz_cpt_col ,
+																--raz_cpt_line => sig_raz_cpt_line ,
 																cen_reg  => sig_en_reg ,
 																load_reg  => sig_load_reg ,
 																rst_reg => sig_rst_reg ,

@@ -45,7 +45,7 @@ entity decod_new_grille is
 			  cpt_line : in  integer;	--counter line
 			  
 			  
-           value : out  STD_LOGIC_VECTOR (5 downto 0);	--value to save in the memory
+           value : out  STD_LOGIC_VECTOR (3 downto 0);	--value to save in the memory
 	   raz_cpt_lin : out  STD_LOGIC;	-- reset for the col counter
            raz_cpt_col : out  STD_LOGIC);	-- reset for the col counter
 			  
@@ -54,7 +54,7 @@ end decod_new_grille;
 
 architecture Behavioral of decod_new_grille is
 
-signal sig_val : unsigned(5 downto 0);
+signal sig_val : unsigned(3 downto 0);
 
 begin
 
@@ -64,7 +64,7 @@ process (clk, rst)
 
 			if (rst = '1') then
 
-				sig_val<="000000";
+				sig_val<="0000";
 				raz_cpt_col<='0';
 				raz_cpt_lin<='0';
 			elsif rising_edge(clk) then
@@ -73,7 +73,7 @@ process (clk, rst)
 				
 					if l_current(cpt_col)='1' then --if it is a mine
 					
-						sig_val<="001001";
+						sig_val<="1001";
 						
 						if cpt_col=9 then
 							raz_cpt_col<='1';
@@ -97,17 +97,17 @@ process (clk, rst)
 						
 							if cpt_col=0 then	--up and left corner
 							
-								sig_val<=("00000"&l_current(9-cpt_col-1))+("00000"&l_next(9-cpt_col-1))+("00000"&l_next(9-cpt_col));
+								sig_val<=("000"&l_current(9-cpt_col-1))+("000"&l_next(9-cpt_col-1))+("000"&l_next(9-cpt_col));
 								raz_cpt_col<='0';
 								raz_cpt_lin<='0';
 							
 							elsif cpt_col=9 then	--up and right corner
-								sig_val<=("00000"&l_current(9-cpt_col+1))+("00000"&l_next(9-cpt_col))+("00000"&l_next(9-cpt_col+1));
+								sig_val<=("000"&l_current(9-cpt_col+1))+("000"&l_next(9-cpt_col))+("000"&l_next(9-cpt_col+1));
 								raz_cpt_col<='1';
 								raz_cpt_lin<='0';
 							
 							else	--up line
-								sig_val<=("00000"&l_current(9-cpt_col-1))+("00000"&l_current(9-cpt_col+1))+("00000"&l_next(9-cpt_col-1))+("00000"&l_next(9-cpt_col))+("00000"&l_next(9-cpt_col+1));
+								sig_val<=("000"&l_current(9-cpt_col-1))+("000"&l_current(9-cpt_col+1))+("000"&l_next(9-cpt_col-1))+("000"&l_next(9-cpt_col))+("000"&l_next(9-cpt_col+1));
 								raz_cpt_col<='0';
 								raz_cpt_lin<='0';
 							
@@ -117,18 +117,18 @@ process (clk, rst)
 						elsif cpt_line=9 then
 						
 							if cpt_col=0 then	--down and left corner
-								sig_val<=("00000"&l_current(9-cpt_col-1))+("00000"&l_prev(9-cpt_col-1))+("00000"&l_prev(9-cpt_col));
+								sig_val<=("000"&l_current(9-cpt_col-1))+("000"&l_prev(9-cpt_col-1))+("000"&l_prev(9-cpt_col));
 								raz_cpt_col<='0';
 								raz_cpt_lin<='0';
 							
 							elsif cpt_col=9 then	--down and right corner
 							
-								sig_val<=("00000"&l_current(9-cpt_col+1))+("00000"&l_prev(9-cpt_col))+("00000"&l_prev(9-cpt_col+1));
+								sig_val<=("000"&l_current(9-cpt_col+1))+("000"&l_prev(9-cpt_col))+("000"&l_prev(9-cpt_col+1));
 								raz_cpt_col<='1';
 								raz_cpt_lin<='1';
 							
 							else	--down line
-								sig_val<=("00000"&l_current(9-cpt_col-1))+("00000"&l_current(9-cpt_col+1))+("00000"&l_prev(9-cpt_col-1))+("00000"&l_prev(9-cpt_col))+("00000"&l_prev(9-cpt_col+1));
+								sig_val<=("000"&l_current(9-cpt_col-1))+("000"&l_current(9-cpt_col+1))+("000"&l_prev(9-cpt_col-1))+("000"&l_prev(9-cpt_col))+("000"&l_prev(9-cpt_col+1));
 								raz_cpt_col<='0';
 								raz_cpt_lin<='0';
 							
@@ -139,20 +139,20 @@ process (clk, rst)
 						
 							if cpt_col=0 then	--left case
 							
-								sig_val<=("00000"&l_current(9-cpt_col-1))+("00000"&l_prev(9-cpt_col-1))+("00000"&l_prev(9-cpt_col))+("00000"&l_next(9-cpt_col-1))+("00000"&l_next(9-cpt_col));
+								sig_val<=("000"&l_current(9-cpt_col-1))+("000"&l_prev(9-cpt_col-1))+("000"&l_prev(9-cpt_col))+("000"&l_next(9-cpt_col-1))+("000"&l_next(9-cpt_col));
 								raz_cpt_col<='0';
 								raz_cpt_lin<='0';
 							
 						  elsif cpt_col=9 then	--right case
 							
-								sig_val<=("00000"&l_current(9-cpt_col+1))+("00000"&l_prev(9-cpt_col))+("00000"&l_prev(9-cpt_col+1))+("00000"&l_next(9-cpt_col))+("00000"&l_next(9-cpt_col+1));
+								sig_val<=("000"&l_current(9-cpt_col+1))+("000"&l_prev(9-cpt_col))+("000"&l_prev(9-cpt_col+1))+("000"&l_next(9-cpt_col))+("000"&l_next(9-cpt_col+1));
 								raz_cpt_col<='1';
 								raz_cpt_lin<='0';
 							
 							
 							else
 						
-								sig_val<=("00000"&l_current(9-cpt_col-1))+("00000"&l_current(9-cpt_col+1))+("00000"&l_prev(9-cpt_col-1))+("00000"&l_prev(9-cpt_col))+("00000"&l_prev(9-cpt_col+1))+("00000"&l_next(9-cpt_col-1))+("00000"&l_next(9-cpt_col))+("00000"&l_next(9-cpt_col+1));
+								sig_val<=("000"&l_current(9-cpt_col-1))+("000"&l_current(9-cpt_col+1))+("000"&l_prev(9-cpt_col-1))+("000"&l_prev(9-cpt_col))+("000"&l_prev(9-cpt_col+1))+("000"&l_next(9-cpt_col-1))+("000"&l_next(9-cpt_col))+("000"&l_next(9-cpt_col+1));
 								raz_cpt_col<='0';
 								raz_cpt_lin<='0';
 							

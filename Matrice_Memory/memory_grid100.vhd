@@ -35,7 +35,7 @@ entity memory_grid100 is
            enable_memory : in  STD_LOGIC;
            read_write : in  STD_LOGIC;
            mem_add : in  STD_LOGIC_VECTOR (6 downto 0);
-           data_in : in  STD_LOGIC_VECTOR (5 downto 0);
+           data_in : in  STD_LOGIC_VECTOR (3 downto 0);
            --data_out : out  STD_LOGIC_VECTOR (5 downto 0));
 			  data_out : out  STD_LOGIC_VECTOR (3 downto 0));
 end memory_grid100;
@@ -64,24 +64,24 @@ begin
 	elsif falling_edge(clk) then
 
 		
---			if enable_memory='1' then
+			if enable_memory='1' then
 				data_out_tmp <= tableau(to_integer(unsigned(mem_add)));
---				if read_write='0' then --reading
---	
---					data_out_tmp <= tableau(to_integer(unsigned(mem_add)));
---					
---					
---				else --writting
---					
---					tableau(to_integer(unsigned(mem_add)))<= data_in;
---					data_out_tmp <= tableau(to_integer(unsigned(mem_add)));
---				
---				end if;	
---				
---			else
---				data_out_tmp<=data_out_tmp;
---				
---			end if;
+				if read_write='0' then --reading
+	
+					data_out_tmp <= tableau(to_integer(unsigned(mem_add)));
+					
+					
+				else --writting
+					
+					tableau(to_integer(unsigned(mem_add)))<= data_in;
+					data_out_tmp <= tableau(to_integer(unsigned(mem_add)));
+				
+				end if;	
+				
+			else
+				data_out_tmp<=data_out_tmp;
+				
+			end if;
 	end if;
 
 	end process;
