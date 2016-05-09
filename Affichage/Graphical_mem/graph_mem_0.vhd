@@ -20,7 +20,7 @@ end graph_mem_0;
 
 architecture Behavioral of graph_mem_0 is
 
-constant line1_cst: std_logic_vector ( 8 downto 0):= "110000000";
+constant line1_cst: std_logic_vector ( 8 downto 0):= "000000000";
 constant line2_cst: std_logic_vector ( 8 downto 0):= "000000000";
 constant line3_cst: std_logic_vector ( 8 downto 0):= "000000000";
 constant line4_cst: std_logic_vector ( 8 downto 0):= "000000000";

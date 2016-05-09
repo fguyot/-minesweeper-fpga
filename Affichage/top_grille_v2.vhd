@@ -33,7 +33,7 @@ entity top_grille_test is
 				value : in STD_LOGIC_VECTOR (3 downto 0);
 				posx : in STD_LOGIC_VECTOR (3 downto 0);
 				posy : in STD_LOGIC_VECTOR (3 downto 0);
-				en1 : in STD_LOGIC;
+				--en1 : in STD_LOGIC;
 				
 				LEDF : out STD_LOGIC_vector(5 downto 0);
 				

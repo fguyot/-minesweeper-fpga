@@ -37,25 +37,25 @@ begin
 				if en='1' then
 
 					if value="0000" then
-						output_tmp<="001";
+						output_tmp<="111";
 					elsif value="0001" then
-						output_tmp<="010";
+						output_tmp<="001";
 					elsif value="0010" then
-						output_tmp<="011";
+						output_tmp<="010";
 					elsif value="0011" then
 						output_tmp<="100";
 					elsif value="0100" then
-						output_tmp<="101";
+						output_tmp<="000";
 					elsif value="0101" then
-						output_tmp<="110";
+						output_tmp<="101";
 					elsif value="0110" then
-						output_tmp<="001";
-					elsif value="0111" then
-						output_tmp<="010";
-					elsif value="1000" then
 						output_tmp<="011";
-					else
+					elsif value="0111" then
+						output_tmp<="001";
+					elsif value="1000" then
 						output_tmp<="010";
+					else
+						output_tmp<="000";
 
 					end if;
 				else

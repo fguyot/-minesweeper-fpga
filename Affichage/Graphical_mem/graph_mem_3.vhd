@@ -21,13 +21,13 @@ end graph_mem_3;
 architecture Behavioral of graph_mem_3 is
 
 constant line1_cst: std_logic_vector ( 8 downto 0):= "000000000";
-constant line2_cst: std_logic_vector ( 8 downto 0):= "000000000";
-constant line3_cst: std_logic_vector ( 8 downto 0):= "000000000";
-constant line4_cst: std_logic_vector ( 8 downto 0):= "110000000";
-constant line5_cst: std_logic_vector ( 8 downto 0):= "000000000";
-constant line6_cst: std_logic_vector ( 8 downto 0):= "000000000";
-constant line7_cst: std_logic_vector ( 8 downto 0):= "000000000";
-constant line8_cst: std_logic_vector ( 8 downto 0):= "000000000";
+constant line2_cst: std_logic_vector ( 8 downto 0):= "001111100";
+constant line3_cst: std_logic_vector ( 8 downto 0):= "000100000";
+constant line4_cst: std_logic_vector ( 8 downto 0):= "000010000";
+constant line5_cst: std_logic_vector ( 8 downto 0):= "000100000";
+constant line6_cst: std_logic_vector ( 8 downto 0):= "001000000";
+constant line7_cst: std_logic_vector ( 8 downto 0):= "001000100";
+constant line8_cst: std_logic_vector ( 8 downto 0):= "000111000";
 constant line9_cst: std_logic_vector ( 8 downto 0):= "000000000";
 signal output_tmp : std_logic_vector(8 downto 0);
 
