@@ -39,6 +39,7 @@ entity top_demineur_V1 is
 				down 				: in  STD_LOGIC;
 				discover_bp 	: in  STD_LOGIC;
 				en1				: in STD_LOGIC;
+				flag_sw			: in STD_LOGIC;
 				CE_env			: in STD_LOGIC;
 				value				: in STD_LOGIC_VECTOR (3 downto 0);
 				LEDF 				: out STD_LOGIC_VECTOR (5 downto 0);
@@ -144,6 +145,7 @@ component top_memory_grid_100 is
     Port ( 	clk : in  STD_LOGIC;
            	rst : in  STD_LOGIC;
 				sel : in STD_LOGIC;
+				flag : in STD_LOGIC;
            	posX : in  STD_LOGIC_VECtOR(3 downto 0);
 				posY : in  STD_LOGIC_VECtOR(3 downto 0);
 
@@ -256,7 +258,7 @@ Memory_bloc : top_memory_grid_100 port map (  	clk => clk ,
 																sel => CE_env,
 																posX => sig_pos_lr,
 																posY =>  sig_pos_ud,
-
+																flag => flag_sw,
 
 																data_in_decode => sig_data_mem_matrice_in,
 																addr_decode => sig_add_mem_matrice_in,
