@@ -38,9 +38,9 @@ entity top_demineur_V1 is
 				up 				: in  STD_LOGIC;
 				down 				: in  STD_LOGIC;
 				discover_bp 	: in  STD_LOGIC;
-				en1				: in STD_LOGIC;
+				--en1				: in STD_LOGIC;
 				CE_env			: in STD_LOGIC;
-				value				: in STD_LOGIC_VECTOR (3 downto 0);
+				--value				: in STD_LOGIC_VECTOR (3 downto 0);
 				LEDF 				: out STD_LOGIC_VECTOR (5 downto 0);
 				led_env 				: out STD_LOGIC;
 				vga_hs 			: out  STD_LOGIC;

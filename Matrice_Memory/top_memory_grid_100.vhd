@@ -122,7 +122,7 @@ Mux : mux_memory port map ( 	selection => sel,
 										output_data_in => sig_data_in,
 										output_addr => sig_add_in,
 										output_write => sig_mem_write,
-										output_enable_memory=> sig_enable_memory);			
+										output_enable_memory=> sig_enable_memory);		
 															       
 
 

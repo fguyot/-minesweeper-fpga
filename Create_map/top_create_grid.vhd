@@ -50,78 +50,92 @@ constant l9_cst : std_logic_vector(9 downto 0) :="1000000001";
   
 begin
 
-registre0: register_10bit_stat     Port map (	input => l0_cst ,          
-						clock => clock ,  
-						--load => load ,  
-						--ce => ce ,  
-						reset => reset ,  
-						output =>  output_l0);
-
-registre1: register_10bit_stat     Port map (	input => l1_cst ,          
-						clock => clock ,  
-						--load => load ,  
-						--ce => ce ,  
-						reset => reset ,  
-						output =>  output_l1);
-
-registre2: register_10bit_stat     Port map (	input => l2_cst ,          
-						clock => clock ,  
-						--load => load ,  
-						--ce => ce ,  
-						reset => reset ,  
-						output =>  output_l2);
 
 
-registre3: register_10bit_stat     Port map (	input => l3_cst ,          
-						clock => clock ,  
-						--load => load ,  
-						--ce => ce ,  
-						reset => reset ,  
-						output =>  output_l3);
 
-registre4: register_10bit_stat     Port map (	input => l4_cst ,          
-						clock => clock ,  
-						--load => load ,  
-						--ce => ce ,  
-						reset => reset ,  
-						output =>  output_l4);
+				output_l0 <= l0_cst;
+				output_l1 <= l1_cst;
+				output_l2 <= l2_cst;
+				output_l3 <= l3_cst;
+				output_l4 <= l4_cst;
+				output_l5 <= l5_cst;
+				output_l6 <= l6_cst;
+				output_l7 <= l7_cst;
+				output_l8 <= l8_cst;
+				output_l9 <= l9_cst;
 
-registre5: register_10bit_stat     Port map (	input => l5_cst ,          
-						clock => clock ,  
-						--load => load ,  
-						--ce => ce ,  
-						reset => reset ,  
-						output =>  output_l5);
-
-registre6: register_10bit_stat     Port map (	input => l6_cst ,          
-						clock => clock ,  
-						--load => load ,  
-						--ce => ce ,  
-						reset => reset ,  
-						output =>  output_l6);
-
-
-registre7: register_10bit_stat     Port map (	input => l7_cst ,          
-						clock => clock ,  
-						--load => load ,  
-						--ce => ce ,  
-						reset => reset ,  
-						output =>  output_l7);
-
-registre8: register_10bit_stat     Port map (	input => l8_cst ,          
-						clock => clock ,  
-						--load => load ,  
-						--ce => ce ,  
-						reset => reset ,  
-						output =>  output_l8);
-
-
-registre9: register_10bit_stat     Port map (	input => l9_cst ,          
-						clock => clock ,  
-						--load => load ,  
-						--ce => ce ,  
-						reset => reset ,  
-						output =>  output_l9);
+--registre0: register_10bit_stat     Port map (	input => l0_cst ,          
+--						clock => clock ,  
+--						--load => load ,  
+--						--ce => ce ,  
+--						reset => reset ,  
+--						output =>  output_l0);
+--
+--registre1: register_10bit_stat     Port map (	input => l1_cst ,          
+--						clock => clock ,  
+--						--load => load ,  
+--						--ce => ce ,  
+--						reset => reset ,  
+--						output =>  output_l1);
+--
+--registre2: register_10bit_stat     Port map (	input => l2_cst ,          
+--						clock => clock ,  
+--						--load => load ,  
+--						--ce => ce ,  
+--						reset => reset ,  
+--						output =>  output_l2);
+--
+--
+--registre3: register_10bit_stat     Port map (	input => l3_cst ,          
+--						clock => clock ,  
+--						--load => load ,  
+--						--ce => ce ,  
+--						reset => reset ,  
+--						output =>  output_l3);
+--
+--registre4: register_10bit_stat     Port map (	input => l4_cst ,          
+--						clock => clock ,  
+--						--load => load ,  
+--						--ce => ce ,  
+--						reset => reset ,  
+--						output =>  output_l4);
+--
+--registre5: register_10bit_stat     Port map (	input => l5_cst ,          
+--						clock => clock ,  
+--						--load => load ,  
+--						--ce => ce ,  
+--						reset => reset ,  
+--						output =>  output_l5);
+--
+--registre6: register_10bit_stat     Port map (	input => l6_cst ,          
+--						clock => clock ,  
+--						--load => load ,  
+--						--ce => ce ,  
+--						reset => reset ,  
+--						output =>  output_l6);
+--
+--
+--registre7: register_10bit_stat     Port map (	input => l7_cst ,          
+--						clock => clock ,  
+--						--load => load ,  
+--						--ce => ce ,  
+--						reset => reset ,  
+--						output =>  output_l7);
+--
+--registre8: register_10bit_stat     Port map (	input => l8_cst ,          
+--						clock => clock ,  
+--						--load => load ,  
+--						--ce => ce ,  
+--						reset => reset ,  
+--						output =>  output_l8);
+--
+--
+--registre9: register_10bit_stat     Port map (	input => l9_cst ,          
+--						clock => clock ,  
+--						--load => load ,  
+--						--ce => ce ,  
+--						reset => reset ,  
+--						output =>  output_l9);
 
 
 

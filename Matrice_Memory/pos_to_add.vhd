@@ -40,7 +40,7 @@ end pos_to_add;
 architecture Behavioral of pos_to_add is
 
 signal sig_out : integer range 0 to 100 := 0;
-constant k: integer:= 9;
+constant k: integer:= 10;
 
 begin
 
