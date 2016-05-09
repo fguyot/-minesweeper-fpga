@@ -95,14 +95,14 @@ process (clk, rst)
 						---------------------- first line ----------------------
 						if cpt_line=0 then		
 						
-							if cpt_col=0 then	--up and left corner
+							if cpt_col=9 then	--up and left corner
 							
-								sig_val<=("000"&l_current(9-cpt_col-1))+("000"&l_next(9-cpt_col-1))+("000"&l_next(9-cpt_col));
+								sig_val<=("000"&l_current(cpt_col-1))+("000"&l_next(cpt_col-1))+("000"&l_next(cpt_col));
 								raz_cpt_col<='0';
 								raz_cpt_lin<='0';
 							
-							elsif cpt_col=9 then	--up and right corner
-								sig_val<=("000"&l_current(9-cpt_col+1))+("000"&l_next(9-cpt_col))+("000"&l_next(9-cpt_col+1));
+							elsif cpt_col=0 then	--up and right corner
+								sig_val<=("000"&l_current(cpt_col+1))+("000"&l_next(cpt_col))+("000"&l_next(cpt_col+1));
 								raz_cpt_col<='1';
 								raz_cpt_lin<='0';
 							
@@ -116,14 +116,15 @@ process (clk, rst)
 						---------------------- last line ----------------------
 						elsif cpt_line=9 then
 						
-							if cpt_col=0 then	--down and left corner
-								sig_val<=("000"&l_current(9-cpt_col-1))+("000"&l_prev(9-cpt_col-1))+("000"&l_prev(9-cpt_col));
+							if cpt_col=1 then	--down and left corner
+								sig_val<=("000"&l_current(cpt_col-1))+("000"&l_prev(cpt_col-1))+("000"&l_prev(cpt_col));
 								raz_cpt_col<='0';
 								raz_cpt_lin<='0';
 							
-							elsif cpt_col=9 then	--down and right corner
+							elsif cpt_col=0
+							then	--down and right corner
 							
-								sig_val<=("000"&l_current(9-cpt_col+1))+("000"&l_prev(9-cpt_col))+("000"&l_prev(9-cpt_col+1));
+								sig_val<=("000"&l_current(cpt_col+1))+("000"&l_prev(cpt_col))+("000"&l_prev(cpt_col+1));
 								raz_cpt_col<='1';
 								raz_cpt_lin<='1';
 							
@@ -137,15 +138,15 @@ process (clk, rst)
 						--------------------- middle of the matrix ----------------------
 						else
 						
-							if cpt_col=0 then	--left case
+							if cpt_col=9 then	--left case
 							
-								sig_val<=("000"&l_current(9-cpt_col-1))+("000"&l_prev(9-cpt_col-1))+("000"&l_prev(9-cpt_col))+("000"&l_next(9-cpt_col-1))+("000"&l_next(9-cpt_col));
+								sig_val<=("000"&l_current(cpt_col-1))+("000"&l_prev(cpt_col-1))+("000"&l_prev(cpt_col))+("000"&l_next(cpt_col-1))+("000"&l_next(cpt_col));
 								raz_cpt_col<='0';
 								raz_cpt_lin<='0';
 							
-						  elsif cpt_col=9 then	--right case
+						  elsif cpt_col=0 then	--right case
 							
-								sig_val<=("000"&l_current(9-cpt_col+1))+("000"&l_prev(9-cpt_col))+("000"&l_prev(9-cpt_col+1))+("000"&l_next(9-cpt_col))+("000"&l_next(9-cpt_col+1));
+								sig_val<=("000"&l_current(cpt_col+1))+("000"&l_prev(cpt_col))+("000"&l_prev(cpt_col+1))+("000"&l_next(cpt_col))+("000"&l_next(cpt_col+1));
 								raz_cpt_col<='1';
 								raz_cpt_lin<='0';
 							
