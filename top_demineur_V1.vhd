@@ -148,6 +148,8 @@ component top_memory_grid_100 is
 				flag : in STD_LOGIC;
            	posX : in  STD_LOGIC_VECtOR(3 downto 0);
 				posY : in  STD_LOGIC_VECtOR(3 downto 0);
+				discover_button : in STD_LOGIC;
+				discov_out : out STD_LOGIC;
 
 
 				addr_decode : in  STD_LOGIC_VECTOR (6 downto 0);
@@ -171,7 +173,7 @@ signal sig_add_mem_matrice_in : STD_LOGIC_VECTOR (6 downto 0);
 --signal sig_data_mem_matrice_in,sig_data_out_mem : STD_LOGIC_VECTOR (5 downto 0);
 signal sig_data_mem_matrice_in: STD_LOGIC_VECTOR (5 downto 0);
 signal sig_en_mem_matrice_in : STD_LOGIC;
-signal sig_rw_mem_matrice_in : STD_LOGIC;
+signal sig_rw_mem_matrice_in, sig_discov_out : STD_LOGIC;
 
 signal sig_mem_l0,sig_mem_l1,sig_mem_l2,sig_mem_l3,sig_mem_l4,sig_mem_l5,sig_mem_l6,sig_mem_l7,sig_mem_l8,sig_mem_l9 : STD_LOGIC_VECTOR (9 downto 0);
 
@@ -193,7 +195,7 @@ direction_control : top_moving port map (  	clk => clk ,
 
 display_control : top_grille_test port map (  	clk => clk ,
 																rst =>  rst,
-																discover_bp =>  sig_dis_bp,
+																discover_bp =>  sig_discov_out,
 																value => sig_data_out_mem,
 																posx =>  sig_pos_lr,
 																posy =>  sig_pos_ud,
@@ -259,6 +261,8 @@ Memory_bloc : top_memory_grid_100 port map (  	clk => clk ,
 																posX => sig_pos_lr,
 																posY =>  sig_pos_ud,
 																flag => flag_sw,
+																discover_button => sig_dis_bp,
+																discov_out => sig_discov_out,
 
 																data_in_decode => sig_data_mem_matrice_in,
 																addr_decode => sig_add_mem_matrice_in,

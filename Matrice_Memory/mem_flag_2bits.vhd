@@ -36,6 +36,7 @@ entity mem_flag_2bits is
 			  rst : in  STD_LOGIC;
            adress : in  STD_LOGIC_VECTOR (6 downto 0);
            sel : out  STD_LOGIC;
+			  discov_out: out std_logic;
            data_out : out  STD_LOGIC_VECTOR (3 downto 0));
 			  
 end mem_flag_2bits;
@@ -50,11 +51,12 @@ signal data_out_tmp : std_logic_vector ( 3 downto 0);
 
 
 signal sel_tmp : std_logic;
+signal flag_tmp : std_logic;
 
 
 begin
 
-process (clk,rst)
+process (rst, clk)
 
 begin
 
@@ -64,22 +66,51 @@ tableau(to_integer(unsigned(adress)))<="00";
 		
 elsif rising_edge(clk) then
 
-	if discover ='1' then
-		tableau(to_integer(unsigned(adress)))<=tableau(to_integer(unsigned(adress))) OR "10";
-		sel_tmp <='1';
-		data_out_tmp <="0000";
+	if flag_tmp='1' then
+		if tableau(to_integer(unsigned(adress)))/=(tableau(to_integer(unsigned(adress))) OR "10") then
+			sel_tmp <='0';
+			data_out_tmp <="1111";
+			discov_out <='1';
+			tableau(to_integer(unsigned(adress)))<="10";
+		end if;
 
 
-	elsif flag ='1' then
-		tableau(to_integer(unsigned(adress)))<=tableau(to_integer(unsigned(adress))) OR "01";
-		sel_tmp <='1';
-		data_out_tmp <="1111";
+	elsif discover ='1' then
+		--tableau(to_integer(unsigned(adress)))<=tableau(to_integer(unsigned(adress))) OR "01";
+--		if flag='1' then
+--			sel_tmp <='1';
+--			data_out_tmp <="1111";
+--			discov_out <='1';
+--		else
+--			sel_tmp <='1';
+--			data_out_tmp <="1111";
+--			discov_out <='1';
+--			
+--		end if;
+		
+		if tableau(to_integer(unsigned(adress)))/=(tableau(to_integer(unsigned(adress))) OR "01") then
+			sel_tmp <='1';
+			data_out_tmp <="1111";
+			discov_out <='1';
+			tableau(to_integer(unsigned(adress)))<="01";
+		end if;
+
+				
+	else
+		--tableau(to_integer(unsigned(adress)))<=tableau(to_integer(unsigned(adress)));
+		sel_tmp <='0';
+		data_out_tmp <=data_out_tmp;
+		discov_out <='0';
 
 
 	end if;
 	
 end if;
 end process;
+
+flag_tmp<=flag;
+data_out <= data_out_tmp;
+sel <= sel_tmp;
 
 end Behavioral;
 

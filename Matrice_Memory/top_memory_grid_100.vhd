@@ -36,14 +36,14 @@ entity top_memory_grid_100 is
 				flag: in STD_LOGIC;
            	posX : in  STD_LOGIC_VECtOR(3 downto 0);
 				posY : in  STD_LOGIC_VECtOR(3 downto 0);
-
+				discover_button : in  STD_LOGIC;
 
 				addr_decode : in  STD_LOGIC_VECTOR (6 downto 0);
 				data_in_decode : in  STD_LOGIC_VECTOR (5 downto 0);
 				write_decode : in  STD_LOGIC;
 				enable_memory_decode : in  STD_LOGIC;
 
-				sel_out : out  STD_LOGIC;
+				discov_out : out  STD_LOGIC;
 				data_out : out  STD_LOGIC_VECTOR (3 downto 0));
   
 end top_memory_grid_100;
@@ -59,7 +59,6 @@ component memory_grid100 is
            read_write : in  STD_LOGIC;
            data_in : in  STD_LOGIC_VECTOR (5 downto 0);
            mem_add : in  STD_LOGIC_VECTOR (6 downto 0);
-           --sel_out : out  STD_LOGIC;
 			  data_out : out  STD_LOGIC_VECTOR (3 downto 0));
 
 end component memory_grid100;
@@ -109,6 +108,7 @@ component mem_flag_2bits is
 			  rst : in  STD_LOGIC;
            adress : in  STD_LOGIC_VECTOR (6 downto 0);
            sel : out  STD_LOGIC;
+			  discov_out : out STD_LOGIC;
            data_out : out  STD_LOGIC_VECTOR (3 downto 0));
 			  
 end component mem_flag_2bits;
@@ -154,12 +154,13 @@ Mux : mux_memory port map ( 	selection => sel,
 										output_enable_memory=> sig_enable_memory);		
 
 
-Mem_flag : mem_flag_2bits port map ( 	discover => sel,
+Mem_flag : mem_flag_2bits port map ( 	discover => discover_button,
 													flag =>flag,
 													clk =>clk,
 													rst =>rst,
 													adress => sig_add_pos,
 													sel =>sig_sel_out,
+													discov_out => discov_out,
 													data_out =>sig_input_data_mem_2bits);
 
 
@@ -169,6 +170,6 @@ Mux_data :	mux_data_out  Port map (	selection => sig_sel_out,
 													output_data_out => data_out);									
 															       
 
-sel_out <= sig_sel_out;
+
 end Behavioral;
 

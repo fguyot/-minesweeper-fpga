@@ -35,7 +35,7 @@ end mux_data_out ;
 
 architecture Behavioral of mux_data_out is
 
-signal output_data_tmp : STD_LOGIC_VECTOR(3 downto 0);
+
 
 
 begin
@@ -43,19 +43,18 @@ begin
 	
 		begin
 		
-		if selection = '0' then 	--first	register			
-			output_data_tmp <= input_data_mem_2bits;
+		if selection = '1' then 	--first	register			
+			output_data_out<= input_data_mem_2bits;
 
 
 		else
 			
-			output_data_tmp <= input_mem_grid;
+			output_data_out<= input_mem_grid;
 
 		end if;
 		
 	end process;
 
-	output_data_out <= output_data_tmp;
 
 
 end Behavioral;
