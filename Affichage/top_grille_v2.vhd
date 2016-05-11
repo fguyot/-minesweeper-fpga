@@ -30,7 +30,7 @@ entity top_grille_test is
     Port ( 	clk : in  STD_LOGIC;
 				rst : in  STD_LOGIC;
 				discover_bp : in  STD_LOGIC;
-				value : in STD_LOGIC_VECTOR (3 downto 0);
+				value : in STD_LOGIC_VECTOR (5 downto 0);
 				posx : in STD_LOGIC_VECTOR (3 downto 0);
 				posy : in STD_LOGIC_VECTOR (3 downto 0);
 				--en1 : in STD_LOGIC;
@@ -121,7 +121,7 @@ component top_graph_mem is
 				rst : in  STD_LOGIC;
 				en : in  STD_LOGIC;
 				line_chose : in STD_LOGIC_VECTOR (3 downto 0);
-				value : in STD_LOGIC_VECTOR (3 downto 0);
+				value : in STD_LOGIC_VECTOR (5 downto 0);
 
 				line_data_out : out STD_LOGIC_VECTOR (8 downto 0);
 				color_data_out : out  STD_LOGIC_VECTOR (2 downto 0));

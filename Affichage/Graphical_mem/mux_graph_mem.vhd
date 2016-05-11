@@ -30,7 +30,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 --use UNISIM.VComponents.all;
 
 entity mux_graph_mem is
-    Port ( 	selection : in STD_LOGIC_VECTOR(3 downto 0);
+    Port ( 	selection : in STD_LOGIC_VECTOR(5 downto 0);
 		input0: in  STD_LOGIC_VECTOR (8 downto 0);
 		input1: in  STD_LOGIC_VECTOR (8 downto 0);
 		input2 : in  STD_LOGIC_VECTOR (8 downto 0);
@@ -51,38 +51,38 @@ architecture Behavioral of mux_graph_mem is
 begin
 	process(selection,input1,input2,input3,input4,input5,input6,input7,input8,input9,input10)
 		begin 
-		if selection = "0000" then 	--first	register			
+		if selection = "000000" then 	--first	register			
 			output<= input0;
 
-		elsif selection = "0001" then	--2nd	register
+		elsif selection = "000001" then	--2nd	register
 			output<= input1; 
 
-		elsif selection = "0010" then	--3th	register
+		elsif selection = "000010" then	--3th	register
 			output<= input2; 
 
 
-		elsif selection = "0011" then	--4th	register
+		elsif selection = "000011" then	--4th	register
 			output<= input3; 
 
 
-		elsif selection = "0100" then	--5th	register
+		elsif selection = "000100" then	--5th	register
 			output<= input4; 
 
-		elsif selection = "0101" then	--6th	register
+		elsif selection = "000101" then	--6th	register
 			output<= input5; 
 
-		elsif selection = "0110" then	--7th	register
+		elsif selection = "000110" then	--7th	register
 			output<= input6; 
 
 
-		elsif selection = "0111" then	--8nd	register
+		elsif selection = "000111" then	--8nd	register
 			output<= input7; 
 
 
-		elsif selection = "1000" then	--9nd	register
+		elsif selection = "001000" then	--9nd	register
 			output<= input8; 
 
-		elsif selection = "1001" then	--8nd	register
+		elsif selection = "001001" then	--8nd	register
 			output<= input9; 
 
 		else 

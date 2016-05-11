@@ -38,6 +38,8 @@ entity top_demineur_V1 is
 				up 				: in  STD_LOGIC;
 				down 				: in  STD_LOGIC;
 				discover_bp 	: in  STD_LOGIC;
+							  flag : in STD_LOGIC;
+
 				--en1				: in STD_LOGIC;
 				CE_env			: in STD_LOGIC;
 				--value				: in STD_LOGIC_VECTOR (3 downto 0);
@@ -61,6 +63,7 @@ component top_moving is
 				right : in  STD_LOGIC;
 				up : in  STD_LOGIC;
 				down : in  STD_LOGIC;
+				
 				cpt_left_right: out  STD_LOGIC_VECTOR(3 downto 0);
 				cpt_up_down : out  STD_LOGIC_VECTOR(3 downto 0));
   
@@ -71,7 +74,7 @@ component top_grille_test is
 			 Port ( 	clk : in  STD_LOGIC;
 						rst : in  STD_LOGIC;
 						discover_bp : in  STD_LOGIC;
-						value : in STD_LOGIC_VECTOR (3 downto 0);
+						value : in STD_LOGIC_VECTOR (5 downto 0);
 						posx : in STD_LOGIC_VECTOR (3 downto 0);
 						posy : in STD_LOGIC_VECTOR (3 downto 0);
 						--en1				: in STD_LOGIC;
@@ -146,6 +149,7 @@ component top_memory_grid_100 is
 				sel : in STD_LOGIC;
            	posX : in  STD_LOGIC_VECtOR(3 downto 0);
 				posY : in  STD_LOGIC_VECtOR(3 downto 0);
+				flag : in STD_LOGIC;
 
 
 				addr_decode : in  STD_LOGIC_VECTOR (6 downto 0);
@@ -153,8 +157,8 @@ component top_memory_grid_100 is
 				write_decode : in  STD_LOGIC;
 				enable_memory_decode : in  STD_LOGIC;
 
-				--data_out : out  STD_LOGIC_VECTOR (5 downto 0));
-				data_out : out  STD_LOGIC_VECTOR (3 downto 0));
+				data_out : out  STD_LOGIC_VECTOR (5 downto 0));
+				--data_out : out  STD_LOGIC_VECTOR (3 downto 0));
   
 end  component top_memory_grid_100;
 
@@ -162,7 +166,8 @@ end  component top_memory_grid_100;
 
 
 
-signal sig_pos_lr, sig_pos_ud,sig_data_out_mem : STD_LOGIC_VECTOR (3 downto 0);
+signal sig_pos_lr, sig_pos_ud : STD_LOGIC_VECTOR (3 downto 0);
+signal sig_data_out_mem : STD_LOGIC_VECTOR(5 downto 0);
 signal sig_ce_bp,sig_dis_bp : STD_LOGIC;
 
 signal sig_add_mem_matrice_in : STD_LOGIC_VECTOR (6 downto 0);
@@ -256,7 +261,7 @@ Memory_bloc : top_memory_grid_100 port map (  	clk => clk ,
 																sel => CE_env,
 																posX => sig_pos_lr,
 																posY =>  sig_pos_ud,
-
+																flag =>flag,
 
 																data_in_decode => sig_data_mem_matrice_in,
 																addr_decode => sig_add_mem_matrice_in,

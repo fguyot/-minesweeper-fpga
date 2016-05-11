@@ -31,7 +31,7 @@ entity top_graph_mem is
 				rst : in  STD_LOGIC;
 				en : in  STD_LOGIC;
 				line_chose : in STD_LOGIC_VECTOR (3 downto 0);
-				value : in STD_LOGIC_VECTOR (3 downto 0);
+				value : in STD_LOGIC_VECTOR (5 downto 0);
 
 				line_data_out : out STD_LOGIC_VECTOR (8 downto 0);
 				color_data_out : out  STD_LOGIC_VECTOR (2 downto 0));
@@ -162,7 +162,7 @@ end component graph_mem_mine;
 
 
 component mux_graph_mem is
-    Port ( 	selection : in STD_LOGIC_VECTOR(3 downto 0);
+    Port ( 	selection : in STD_LOGIC_VECTOR(5 downto 0);
 		input0: in  STD_LOGIC_VECTOR (8 downto 0);
 		input1: in  STD_LOGIC_VECTOR (8 downto 0);
 		input2 : in  STD_LOGIC_VECTOR (8 downto 0);
@@ -182,7 +182,7 @@ component graph_color is
     Port ( 	clk : in  STD_LOGIC;
 				rst : in  STD_LOGIC;
 				en : in STD_LOGIC;
-				value : in  STD_LOGIC_VECTOR (3 downto 0);
+				value : in  STD_LOGIC_VECTOR (5 downto 0);
 				output : out  STD_LOGIC_VECTOR (2 downto 0));
 end component graph_color;
 

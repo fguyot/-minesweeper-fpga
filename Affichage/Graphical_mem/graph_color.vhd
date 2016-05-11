@@ -14,7 +14,7 @@ entity graph_color is
     Port ( 	clk : in  STD_LOGIC;
 				rst : in  STD_LOGIC;
 				en : in STD_LOGIC;
-				value : in  STD_LOGIC_VECTOR (3 downto 0);
+				value : in  STD_LOGIC_VECTOR (5 downto 0);
 				output : out  STD_LOGIC_VECTOR (2 downto 0));
 end graph_color;
 
@@ -36,23 +36,23 @@ begin
 				
 				if en='1' then
 
-					if value="0000" then
+					if value="000000" then
 						output_tmp<="111";
-					elsif value="0001" then
+					elsif value="000001" then
 						output_tmp<="001";
-					elsif value="0010" then
+					elsif value="000010" then
 						output_tmp<="010";
-					elsif value="0011" then
+					elsif value="000011" then
 						output_tmp<="100";
-					elsif value="0100" then
+					elsif value="000100" then
 						output_tmp<="000";
-					elsif value="0101" then
+					elsif value="000101" then
 						output_tmp<="101";
-					elsif value="0110" then
+					elsif value="000110" then
 						output_tmp<="011";
-					elsif value="0111" then
+					elsif value="000111" then
 						output_tmp<="001";
-					elsif value="1000" then
+					elsif value="001000" then
 						output_tmp<="010";
 					else
 						output_tmp<="000";

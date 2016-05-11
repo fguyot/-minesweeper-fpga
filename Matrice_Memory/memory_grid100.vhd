@@ -34,17 +34,18 @@ entity memory_grid100 is
            rst : in  STD_LOGIC;
            enable_memory : in  STD_LOGIC;
            read_write : in  STD_LOGIC;
+			  flag : in STD_LOGIC;
            mem_add : in  STD_LOGIC_VECTOR (6 downto 0);
            data_in : in  STD_LOGIC_VECTOR (3 downto 0);
            --data_out : out  STD_LOGIC_VECTOR (5 downto 0));
-			  data_out : out  STD_LOGIC_VECTOR (3 downto 0));
+			  data_out : out  STD_LOGIC_VECTOR (5 downto 0));
 end memory_grid100;
 
 architecture Behavioral of memory_grid100 is
 
-type tab is array(0 to 99) of std_logic_vector(3 downto 0);
-signal tableau :tab :=("0000","0001","0010","0011","0100","0101","0110","0111","1000","0001","0000","0001","0010","0011","0100","0101","0110","0111","1000","1001","0000","0001","0010","0011","0100","0101","0110","0111","1000","1001","0000","0001","0010","0011","0100","0101","0110","0111","1000","1001","0000","0001","0010","0011","0100","0101","0110","0111","1000","1001",others=>"0000");
-signal data_out_tmp : std_logic_vector ( 3 downto 0);
+type tab is array(0 to 99) of std_logic_vector(5 downto 0);
+signal tableau :tab :=(others=>"000000");
+signal data_out_tmp : std_logic_vector ( 5 downto 0);
 
 --init tab
 
@@ -59,24 +60,33 @@ begin
 	
 	if rst='1' then
 		
-		data_out_tmp <= "0000";
+		data_out_tmp <= "000000";
 		
 	elsif falling_edge(clk) then
 
 		
 			if enable_memory='1' then
-				data_out_tmp <= tableau(to_integer(unsigned(mem_add)));
+			
+				--data_out_tmp <= tableau(to_integer(unsigned(mem_add)));
+				
 				if read_write='0' then --reading
 	
 					data_out_tmp <= tableau(to_integer(unsigned(mem_add)));
 					
+				elsif	flag ='1' then
+					--tableau(to_integer(unsigned(mem_add)))<= (tableau(to_integer(unsigned(mem_add))) OR "010000");
+					tableau(to_integer(unsigned(mem_add)))<="000111";
+					data_out_tmp <= tableau(to_integer(unsigned(mem_add)));
 					
 				else --writting
 					
-					tableau(to_integer(unsigned(mem_add)))<= data_in;
+					tableau(to_integer(unsigned(mem_add)))<= "00" & data_in;
 					data_out_tmp <= tableau(to_integer(unsigned(mem_add)));
 				
-				end if;	
+				end if;
+
+
+
 				
 			else
 				data_out_tmp<=data_out_tmp;

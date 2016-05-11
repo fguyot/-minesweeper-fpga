@@ -35,7 +35,7 @@ entity top_memory_grid_100 is
 				sel : in STD_LOGIC;
            	posX : in  STD_LOGIC_VECtOR(3 downto 0);
 				posY : in  STD_LOGIC_VECtOR(3 downto 0);
-
+				flag : in STD_LOGIC;
 
 				addr_decode : in  STD_LOGIC_VECTOR (6 downto 0);
 				data_in_decode : in  STD_LOGIC_VECTOR (3 downto 0);
@@ -43,7 +43,7 @@ entity top_memory_grid_100 is
 				enable_memory_decode : in  STD_LOGIC;
 
 				--data_out : out  STD_LOGIC_VECTOR (5 downto 0));
-				data_out : out  STD_LOGIC_VECTOR (3 downto 0));
+				data_out : out  STD_LOGIC_VECTOR (5 downto 0));
   
 end top_memory_grid_100;
 
@@ -56,10 +56,11 @@ component memory_grid100 is
            rst : in  STD_LOGIC;
            enable_memory : in  STD_LOGIC;
            read_write : in  STD_LOGIC;
+			  flag : in STD_LOGIC;
            data_in : in  STD_LOGIC_VECTOR (3 downto 0);
            mem_add : in  STD_LOGIC_VECTOR (6 downto 0);
            --data_out : out  STD_LOGIC_VECTOR (5 downto 0));
-			  data_out : out  STD_LOGIC_VECTOR (3 downto 0));
+			  data_out : out  STD_LOGIC_VECTOR (5 downto 0));
 
 end component memory_grid100;
 
@@ -99,6 +100,7 @@ begin
 Memory : memory_grid100 port map ( 	clk => clk,
 												rst => rst,
 												enable_memory => sig_enable_memory,
+												flag => flag,
 												read_write => sig_mem_write,
 												mem_add => sig_add_in,
 												data_in => sig_data_in,
