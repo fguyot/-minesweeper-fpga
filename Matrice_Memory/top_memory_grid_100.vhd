@@ -2,9 +2,9 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date:    16:35:10 03/21/2016 
+-- Create Date:    10:43:28 03/18/2016 
 -- Design Name: 
--- Module Name:    top_aff - Behavioral 
+-- Module Name:    RAM64o - Behavioral 
 -- Project Name: 
 -- Target Devices: 
 -- Tool versions: 
@@ -29,102 +29,62 @@ use IEEE.NUMERIC_STD.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity top_memory_grid_100 is
-    Port ( 	clk : in  STD_LOGIC;
-           	rst : in  STD_LOGIC;
-				sel : in STD_LOGIC;
-           	posX : in  STD_LOGIC_VECtOR(3 downto 0);
-				posY : in  STD_LOGIC_VECtOR(3 downto 0);
-
-
-				addr_decode : in  STD_LOGIC_VECTOR (6 downto 0);
-				data_in_decode : in  STD_LOGIC_VECTOR (3 downto 0);
-				write_decode : in  STD_LOGIC;
-				enable_memory_decode : in  STD_LOGIC;
-
-				--data_out : out  STD_LOGIC_VECTOR (5 downto 0));
-				data_out : out  STD_LOGIC_VECTOR (3 downto 0));
-  
-end top_memory_grid_100;
-
-architecture Behavioral of top_memory_grid_100 is
-
-
-
-component memory_grid100 is
+entity memory_grid100 is
     Port ( clk : in  STD_LOGIC;
            rst : in  STD_LOGIC;
            enable_memory : in  STD_LOGIC;
            read_write : in  STD_LOGIC;
-           data_in : in  STD_LOGIC_VECTOR (3 downto 0);
            mem_add : in  STD_LOGIC_VECTOR (6 downto 0);
+           data_in : in  STD_LOGIC_VECTOR (3 downto 0);
            --data_out : out  STD_LOGIC_VECTOR (5 downto 0));
 			  data_out : out  STD_LOGIC_VECTOR (3 downto 0));
+end memory_grid100;
 
-end component memory_grid100;
+architecture Behavioral of memory_grid100 is
 
-component pos_to_add is
-    Port ( clk : in  STD_LOGIC;
-           rst : in  STD_LOGIC;
-           posX : in  STD_LOGIC_VECTOR(3 downto 0);
-           posY : in  STD_LOGIC_VECTOR(3 downto 0);
-           adress : out  STD_LOGIC_VECTOR (6 downto 0));
-end component pos_to_add;
+type tab is array(0 to 99) of std_logic_vector(3 downto 0);
+signal tableau :tab :=("0000","0001","0010","0011","0100","0101","0110","0111","1000","0001","0000","0001","0010","0011","0100","0101","0110","0111","1000","1001","0000","0001","0010","0011","0100","0101","0110","0111","1000","1001","0000","0001","0010","0011","0100","0101","0110","0111","1000","1001","0000","0001","0010","0011","0100","0101","0110","0111","1000","1001",others=>"0000");
+signal data_out_tmp : std_logic_vector ( 3 downto 0);
 
-component mux_memory is
-    Port ( 	selection : in STD_LOGIC;
-		input_data_in_decode: in  STD_LOGIC_VECTOR (3 downto 0);
-		
-		input_addr_pos: in  STD_LOGIC_VECTOR (6 downto 0);
-		input_addr_decode : in  STD_LOGIC_VECTOR (6 downto 0);
-
-		input_write_decode : in  STD_LOGIC;
-		input_enable_memory_decode : in  STD_LOGIC;
-		
-		output_data_in : out  STD_LOGIC_VECTOR (3 downto 0);
-		output_addr : out  STD_LOGIC_VECTOR (6 downto 0);
-		output_write: out  STD_LOGIC;
-		output_enable_memory: out STD_LOGIC);
-end component mux_memory ;
+--init tab
 
 
-signal sig_data_in : STD_LOGIC_VECTOR(3 downto 0);
-signal sig_add_in,sig_add_pos : STD_LOGIC_VECTOR(6 downto 0);
-signal sig_mem_write,sig_enable_memory: STD_LOGIC;
 
-  
+
 begin
 
+	process (clk,rst)
+	
+	begin
+	
+	if rst='1' then
+		
+		data_out_tmp <= "0000";
+		
+	elsif falling_edge(clk) then
 
-Memory : memory_grid100 port map ( 	clk => clk,
-												rst => rst,
-												enable_memory => sig_enable_memory,
-												read_write => sig_mem_write,
-												mem_add => sig_add_in,
-												data_in => sig_data_in,
-												data_out => data_out);
+		
+			if enable_memory='1' then
+				data_out_tmp <= tableau(to_integer(unsigned(mem_add)));
+				if read_write='0' then --reading
+	
+					data_out_tmp <= tableau(to_integer(unsigned(mem_add)));
+					
+					
+				else --writting
+					
+					tableau(to_integer(unsigned(mem_add)))<= data_in;
+					data_out_tmp <= tableau(to_integer(unsigned(mem_add)));
+				
+				end if;	
+				
+			else
+				data_out_tmp<=data_out_tmp;
+				
+			end if;
+	end if;
 
-Converter : pos_to_add port map ( 	   clk => clk,
-													rst => rst,
-													posX => posX,
-													posY => posY,
-													adress => sig_add_pos);
-
-Mux : mux_memory port map ( 	selection => sel,
-										input_data_in_decode => data_in_decode,
-								
-										input_addr_pos => sig_add_pos,
-										input_addr_decode => addr_decode,
-
-										input_write_decode => write_decode,
-										input_enable_memory_decode => enable_memory_decode,
-								
-										output_data_in => sig_data_in,
-										output_addr => sig_add_in,
-										output_write => sig_mem_write,
-										output_enable_memory=> sig_enable_memory);		
-															       
-
+	end process;
+data_out<=data_out_tmp;
 
 end Behavioral;
-
