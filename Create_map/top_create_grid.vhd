@@ -36,16 +36,25 @@ architecture Behavioral of top_create_grid is
   end component register_10bit_stat ;
 
 
+<<<<<<< HEAD
 constant l0_cst : std_logic_vector(9 downto 0) :="1100001000";
 constant l1_cst : std_logic_vector(9 downto 0) :="0000000000";
+=======
+constant l0_cst : std_logic_vector(9 downto 0) :="0000000001";
+constant l1_cst : std_logic_vector(9 downto 0) :="1111111111";
+>>>>>>> parent of 180eb7e... Decode grind complete looks good in simu and on the screen !! :)
 constant l2_cst : std_logic_vector(9 downto 0) :="0000000000";
 constant l3_cst : std_logic_vector(9 downto 0) :="0000010000";
-constant l4_cst : std_logic_vector(9 downto 0) :="1000000000";
+constant l4_cst : std_logic_vector(9 downto 0) :="0000000000";
 constant l5_cst : std_logic_vector(9 downto 0) :="0001000000";
 constant l6_cst : std_logic_vector(9 downto 0) :="0000000000";
-constant l7_cst : std_logic_vector(9 downto 0) :="0000010001";
+constant l7_cst : std_logic_vector(9 downto 0) :="0000010000";
 constant l8_cst : std_logic_vector(9 downto 0) :="0000000000";
+<<<<<<< HEAD
 constant l9_cst : std_logic_vector(9 downto 0) :="1100001000";
+=======
+constant l9_cst : std_logic_vector(9 downto 0) :="1000000001";
+>>>>>>> parent of 180eb7e... Decode grind complete looks good in simu and on the screen !! :)
 
   
 begin

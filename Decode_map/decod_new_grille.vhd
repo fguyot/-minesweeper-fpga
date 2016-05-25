@@ -107,7 +107,7 @@ process (clk, rst)
 								raz_cpt_lin<='0';
 							
 							else	--up line
-								sig_val<=("000"&l_current(cpt_col-1))+("000"&l_current(cpt_col+1))+("000"&l_next(cpt_col-1))+("000"&l_next(cpt_col))+("000"&l_next(cpt_col+1));
+								sig_val<=("000"&l_current(9-cpt_col-1))+("000"&l_current(9-cpt_col+1))+("000"&l_next(9-cpt_col-1))+("000"&l_next(9-cpt_col))+("000"&l_next(9-cpt_col+1));
 								raz_cpt_col<='0';
 								raz_cpt_lin<='0';
 							
@@ -129,7 +129,7 @@ process (clk, rst)
 								raz_cpt_lin<='1';
 							
 							else	--down line
-								sig_val<=("000"&l_current(cpt_col-1))+("000"&l_current(cpt_col+1))+("000"&l_prev(cpt_col-1))+("000"&l_prev(cpt_col))+("000"&l_prev(cpt_col+1));
+								sig_val<=("000"&l_current(9-cpt_col-1))+("000"&l_current(9-cpt_col+1))+("000"&l_prev(9-cpt_col-1))+("000"&l_prev(9-cpt_col))+("000"&l_prev(9-cpt_col+1));
 								raz_cpt_col<='0';
 								raz_cpt_lin<='0';
 							
@@ -153,7 +153,7 @@ process (clk, rst)
 							
 							else
 						
-								sig_val<=("000"&l_current(cpt_col-1))+("000"&l_current(cpt_col+1))+("000"&l_prev(cpt_col-1))+("000"&l_prev(cpt_col))+("000"&l_prev(cpt_col+1))+("000"&l_next(cpt_col-1))+("000"&l_next(cpt_col))+("000"&l_next(cpt_col+1));
+								sig_val<=("000"&l_current(9-cpt_col-1))+("000"&l_current(9-cpt_col+1))+("000"&l_prev(9-cpt_col-1))+("000"&l_prev(9-cpt_col))+("000"&l_prev(9-cpt_col+1))+("000"&l_next(9-cpt_col-1))+("000"&l_next(9-cpt_col))+("000"&l_next(9-cpt_col+1));
 								raz_cpt_col<='0';
 								raz_cpt_lin<='0';
 							
