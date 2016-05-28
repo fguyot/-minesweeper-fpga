@@ -38,12 +38,8 @@ entity top_demineur_V1 is
 				up 				: in  STD_LOGIC;
 				down 				: in  STD_LOGIC;
 				discover_bp 	: in  STD_LOGIC;
-<<<<<<< HEAD
-				--en1				: in STD_LOGIC;
-=======
 				en1				: in STD_LOGIC;
 				flag_sw			: in STD_LOGIC;
->>>>>>> 9d0cfb554c3773701b8d14feebe0b53625b63f41
 				CE_env			: in STD_LOGIC;
 				--value				: in STD_LOGIC_VECTOR (3 downto 0);
 				LEDF 				: out STD_LOGIC_VECTOR (6 downto 0);
@@ -149,11 +145,11 @@ component top_memory_grid_100 is
     Port ( 	clk : in  STD_LOGIC;
            	rst : in  STD_LOGIC;
 				sel : in STD_LOGIC;
-				flag : in STD_LOGIC;
+				--flag : in STD_LOGIC;
            	posX : in  STD_LOGIC_VECtOR(3 downto 0);
 				posY : in  STD_LOGIC_VECtOR(3 downto 0);
-				discover_button : in STD_LOGIC;
-				discov_out : out STD_LOGIC;
+				--discover_button : in STD_LOGIC;
+				--discov_out : out STD_LOGIC;
 
 
 				addr_decode : in  STD_LOGIC_VECTOR (6 downto 0);
@@ -199,7 +195,7 @@ direction_control : top_moving port map (  	clk => clk ,
 
 display_control : top_grille_test port map (  	clk => clk ,
 																rst =>  rst,
-																discover_bp =>  sig_discov_out,
+																discover_bp =>  discover_bp,
 																value => sig_data_out_mem,
 																posx =>  sig_pos_lr,
 																posy =>  sig_pos_ud,
@@ -264,9 +260,9 @@ Memory_bloc : top_memory_grid_100 port map (  	clk => clk ,
 																sel => CE_env,
 																posX => sig_pos_lr,
 																posY =>  sig_pos_ud,
-																flag => flag_sw,
-																discover_button => sig_dis_bp,
-																discov_out => sig_discov_out,
+																--flag => flag_sw,
+																--discover_button => discover_bp,
+																--discov_out => sig_discov_out,
 
 																data_in_decode => sig_data_mem_matrice_in,
 																addr_decode => sig_add_mem_matrice_in,
