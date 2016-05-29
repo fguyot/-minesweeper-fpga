@@ -25,15 +25,17 @@ use IEEE.NUMERIC_STD.ALL;
 entity cadenceur is
     Port ( clk : in  STD_LOGIC;
            rst : in  STD_LOGIC;
+	   MuxAffEn : out  STD_LOGIC;
            CCEn : out  STD_LOGIC);
 end cadenceur;
 
 architecture Behavioral of cadenceur is
 
 			  signal sig_CCEn : unsigned  (23 downto 0);
-
+          		  signal sig_MuxAffEn : unsigned(18 downto 0);
 			  
 			  signal sig_en_CCEn : std_logic;
+			  signal sig_en_MuxAffEn : std_logic;
 
 begin
 
@@ -43,9 +45,11 @@ process(clk, rst)
 
 		if (rst = '1') then
 		 sig_CCEn <= (others =>'0');
+		 sig_MuxAffEn<= (others =>'0');
 
 		 
 		 sig_en_CCEn <= '0';
+		sig_en_MuxAffEn<='0';
 
 		 
 		 
@@ -58,13 +62,20 @@ process(clk, rst)
 				sig_CCEn <= (others =>'0');
 				sig_en_CCEn <= '1';
 				end if;
-				
-				
-				
+
+				if sig_MuxAffEn < 250000 then		--for 25ms
+				sig_MuxAffEn <= sig_MuxAffEn+1;
+				sig_en_MuxAffEn <= '0';
+				else 
+				sig_MuxAffEn <= (others =>'0');
+				sig_en_MuxAffEn <= '1';
+				end if;
+
 				
 		end if;
 	end process;
 		
 		CCEn <= sig_en_CCEn;
+		MuxAffEn <= sig_en_MuxAffEn;
 		
 end Behavioral;
