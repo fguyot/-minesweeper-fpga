@@ -34,16 +34,24 @@ entity top_demineur_V1 is
     Port ( 	clk 				: in  STD_LOGIC;
 				rst 				: in  STD_LOGIC;
 				left 				: in  STD_LOGIC;
+				
 				right 			: in  STD_LOGIC;
 				up 				: in  STD_LOGIC;
 				down 				: in  STD_LOGIC;
 				discover_bp 	: in  STD_LOGIC;
+				
 				en1				: in STD_LOGIC;
 				flag_sw			: in STD_LOGIC;
 				CE_env			: in STD_LOGIC;
 				--value				: in STD_LOGIC_VECTOR (3 downto 0);
+				
 				LEDF 				: out STD_LOGIC_VECTOR (6 downto 0);
 				led_env 				: out STD_LOGIC;
+				
+				EN_display		:out	STD_LOGIC_VECTOR(3 downto 0);
+				value_7seg		:out	STD_LOGIC_VECTOR( 6 downto 0);
+
+
 				vga_hs 			: out  STD_LOGIC;
 				vga_vs 			: out  STD_LOGIC;
 				vga_red 			: out  STD_LOGIC_VECTOR (3 downto 0);
@@ -89,6 +97,7 @@ end component top_grille_test;
 component cadenceur is
     Port ( clk : in  STD_LOGIC;
            rst : in  STD_LOGIC;
+			  MuxAffEn : out  STD_LOGIC;
            CCEn : out  STD_LOGIC);
 end component cadenceur;
 
@@ -163,6 +172,16 @@ component top_memory_grid_100 is
 end  component top_memory_grid_100;
 
 
+component top_falg_seg is
+    Port ( clk : in  STD_LOGIC;
+           Ce_mux : in  STD_LOGIC;
+           rst : in  STD_LOGIC;
+			  number_in : IN STD_LOGIC_VECTOR(7 downto 0);
+			  EN_display : out STD_LOGIC_VECTOR(3 downto 0);
+           Def_7Seg : out  STD_LOGIC_VECTOR (6 downto 0));
+end component top_falg_seg;
+
+
 
 
 
@@ -172,7 +191,7 @@ signal sig_ce_bp,sig_dis_bp : STD_LOGIC;
 signal sig_add_mem_matrice_in : STD_LOGIC_VECTOR (6 downto 0);
 --signal sig_data_mem_matrice_in,sig_data_out_mem : STD_LOGIC_VECTOR (5 downto 0);
 signal sig_data_mem_matrice_in: STD_LOGIC_VECTOR (3 downto 0);
-signal sig_en_mem_matrice_in : STD_LOGIC;
+signal sig_en_mem_matrice_in, sig_ce_mux : STD_LOGIC;
 signal sig_rw_mem_matrice_in, sig_discov_out : STD_LOGIC;
 
 signal sig_mem_l0,sig_mem_l1,sig_mem_l2,sig_mem_l3,sig_mem_l4,sig_mem_l5,sig_mem_l6,sig_mem_l7,sig_mem_l8,sig_mem_l9 : STD_LOGIC_VECTOR (9 downto 0);
@@ -210,6 +229,7 @@ display_control : top_grille_test port map (  	clk => clk ,
 															
 cadence : cadenceur port map (  	clk => clk ,
 											rst =>  rst,
+											MuxAffEn => sig_ce_mux,
 											CCEn =>  sig_ce_bp);			
 
 
@@ -272,6 +292,15 @@ Memory_bloc : top_memory_grid_100 port map (  	clk => clk ,
 																data_out => sig_data_out_mem);
 														
 
+
+Seg7_flag_bloc : top_falg_seg port map (  	  clk => clk,
+															  Ce_mux => sig_ce_mux,
+															  rst => rst ,
+																number_in =>"01100000",
+															  EN_display => EN_display,
+															  Def_7Seg => value_7seg );
+			  
+			
 
 
 end Behavioral;
