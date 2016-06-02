@@ -41,7 +41,7 @@ entity top_demineur_V1 is
 				discover_bp 	: in  STD_LOGIC;
 				
 				en1				: in STD_LOGIC;
-				flag_sw			: in STD_LOGIC;
+				flag_bp			: in STD_LOGIC;
 				CE_env			: in STD_LOGIC;
 				
 				signe				: in STD_LOGIC;
@@ -93,7 +93,8 @@ component top_grille_test is
 						vga_red : out  STD_LOGIC_VECTOR (3 downto 0);
 						vga_green : out  STD_LOGIC_VECTOR (3 downto 0);
 						vga_blue : out  STD_LOGIC_VECTOR (3 downto 0);
-						data_out : out  STD_LOGIC_VECTOR (2 downto 0));
+						data_out : out  STD_LOGIC_VECTOR (2 downto 0);
+						en_end_one_bloc 	: out STD_LOGIC);
 end component top_grille_test;
 
 
@@ -176,8 +177,6 @@ end  component top_memory_grid_100;
 
 
 component top_7seg_cpu is
-
-
     Port ( 	clk 				: in  STD_LOGIC;
 				rst 				: in  STD_LOGIC;
 				EN					: in STD_LOGIC;
@@ -190,10 +189,22 @@ component top_7seg_cpu is
 end component top_7seg_cpu;
 
 
+component mux_flag is
+   Port ( 	clk				: in STD_LOGIC;
+				rst				: in STD_LOGIC;
+				bp_discover		: in  STD_LOGIC;
+				bp_flag			: in  STD_LOGIC;
+				value_decod 	: in  STD_LOGIC_VECTOR(3 downto 0);
+				end_disp			: in STD_LOGIC;	
+				value_display	: out  STD_LOGIC_VECTOR(3 downto 0);
+				en_discover 	: out STD_LOGIC);
+end component mux_flag ;
 
 
 
-signal sig_pos_lr, sig_pos_ud,sig_data_out_mem : STD_LOGIC_VECTOR (3 downto 0);
+
+
+signal sig_pos_lr, sig_pos_ud,sig_data_out_mem, sig_data_to_display : STD_LOGIC_VECTOR (3 downto 0);
 signal sig_ce_bp,sig_dis_bp : STD_LOGIC;
 
 signal sig_add_mem_matrice_in : STD_LOGIC_VECTOR (6 downto 0);
@@ -207,7 +218,7 @@ signal sig_mem_l0,sig_mem_l1,sig_mem_l2,sig_mem_l3,sig_mem_l4,sig_mem_l5,sig_mem
 signal sig_add_CPU : STD_LOGIC_VECTOR (5 downto 0);
 signal sig_data_in_CPU : STD_LOGIC_VECTOR (7 downto 0);
 signal sig_data_out_CPU : STD_LOGIC_VECTOR (7 downto 0);
-signal sig_EN_CPU, sig_rst_CPU,sig_ext_mem_CPU,sig_EN_buff : STD_LOGIC;
+signal sig_EN_CPU, sig_rst_CPU,sig_ext_mem_CPU,sig_EN_buff,sig_en_discover,sig_end_bloc_disp : STD_LOGIC;
 
 
 begin
@@ -228,8 +239,8 @@ direction_control : top_moving port map (  	clk => clk ,
 
 display_control : top_grille_test port map (  	clk => clk ,
 																rst =>  rst,
-																discover_bp =>  discover_bp,
-																value => sig_data_out_mem,
+																discover_bp =>  sig_en_discover,
+																value => sig_data_to_display,
 																posx =>  sig_pos_lr,
 																posy =>  sig_pos_ud,
 																--en1 => en1,
@@ -239,7 +250,8 @@ display_control : top_grille_test port map (  	clk => clk ,
 																vga_red =>  vga_red,
 																vga_green => vga_green ,
 																vga_blue => vga_blue ,
-																data_out => data_out );
+																data_out => data_out ,
+																en_end_one_bloc => sig_end_bloc_disp);
 															
 cadence : cadenceur port map (  	clk => clk ,
 											rst =>  rst,
@@ -314,6 +326,17 @@ seg_display_bloc : top_7seg_cpu port map (  		clk 				=> clk ,
 																
 																EN_display		=> EN_display,
 																value_7seg		=> value_7seg);
+
+
+flag_memory : mux_flag port map (  		clk 				=> clk ,
+													rst 				=> rst,
+													bp_discover		=> discover_bp,
+													bp_flag			=> flag_bp,
+													value_decod 	=> sig_data_out_mem,
+													end_disp			=> sig_end_bloc_disp,
+													value_display	=> sig_data_to_display,
+													en_discover 	=> sig_en_discover);
+
 
 
 end Behavioral;
