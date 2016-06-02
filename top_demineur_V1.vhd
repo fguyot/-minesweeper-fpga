@@ -43,6 +43,9 @@ entity top_demineur_V1 is
 				en1				: in STD_LOGIC;
 				flag_sw			: in STD_LOGIC;
 				CE_env			: in STD_LOGIC;
+				
+				signe				: in STD_LOGIC;
+				operation		: in STD_LOGIC;
 				--value				: in STD_LOGIC_VECTOR (3 downto 0);
 				
 				LEDF 				: out STD_LOGIC_VECTOR (6 downto 0);
@@ -172,14 +175,19 @@ component top_memory_grid_100 is
 end  component top_memory_grid_100;
 
 
-component top_falg_seg is
-    Port ( clk : in  STD_LOGIC;
-           Ce_mux : in  STD_LOGIC;
-           rst : in  STD_LOGIC;
-			  number_in : IN STD_LOGIC_VECTOR(7 downto 0);
-			  EN_display : out STD_LOGIC_VECTOR(3 downto 0);
-           Def_7Seg : out  STD_LOGIC_VECTOR (6 downto 0));
-end component top_falg_seg;
+component top_7seg_cpu is
+
+
+    Port ( 	clk 				: in  STD_LOGIC;
+				rst 				: in  STD_LOGIC;
+				EN					: in STD_LOGIC;
+				Ce_mux			: in STD_LOGIC;
+				operation		: in STD_LOGIC;
+				signe				: in STD_LOGIC;
+				
+				EN_display		: out	STD_LOGIC_VECTOR(3 downto 0);
+				value_7seg		: out	STD_LOGIC_VECTOR( 6 downto 0));
+end component top_7seg_cpu;
 
 
 
@@ -195,6 +203,12 @@ signal sig_en_mem_matrice_in, sig_ce_mux : STD_LOGIC;
 signal sig_rw_mem_matrice_in, sig_discov_out : STD_LOGIC;
 
 signal sig_mem_l0,sig_mem_l1,sig_mem_l2,sig_mem_l3,sig_mem_l4,sig_mem_l5,sig_mem_l6,sig_mem_l7,sig_mem_l8,sig_mem_l9 : STD_LOGIC_VECTOR (9 downto 0);
+
+signal sig_add_CPU : STD_LOGIC_VECTOR (5 downto 0);
+signal sig_data_in_CPU : STD_LOGIC_VECTOR (7 downto 0);
+signal sig_data_out_CPU : STD_LOGIC_VECTOR (7 downto 0);
+signal sig_EN_CPU, sig_rst_CPU,sig_ext_mem_CPU,sig_EN_buff : STD_LOGIC;
+
 
 begin
 
@@ -290,17 +304,16 @@ Memory_bloc : top_memory_grid_100 port map (  	clk => clk ,
 																enable_memory_decode => sig_en_mem_matrice_in,
 
 																data_out => sig_data_out_mem);
-														
-
-
-Seg7_flag_bloc : top_falg_seg port map (  	  clk => clk,
-															  Ce_mux => sig_ce_mux,
-															  rst => rst ,
-																number_in =>"01100000",
-															  EN_display => EN_display,
-															  Def_7Seg => value_7seg );
-			  
-			
+																
+seg_display_bloc : top_7seg_cpu port map (  		clk 				=> clk ,
+																rst 				=> rst,
+																EN					=> '1',
+																Ce_mux			=> sig_ce_mux,
+																operation		=> operation,
+																signe				=> signe,
+																
+																EN_display		=> EN_display,
+																value_7seg		=> value_7seg);
 
 
 end Behavioral;
