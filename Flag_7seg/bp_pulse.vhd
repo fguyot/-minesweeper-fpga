@@ -27,17 +27,17 @@ use IEEE.NUMERIC_STD.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity anti_bounding is
+entity bp_pulse is
     Port ( clock : in  STD_LOGIC;
            reset : in  STD_LOGIC;
-           enable : in  STD_LOGIC;
+           bp : in  STD_LOGIC;
            output : out  STD_LOGIC);
-end anti_bounding;
+end bp_pulse;
 
-architecture Behavioral of anti_bounding is
+architecture Behavioral of bp_pulse is
 
 signal count : unsigned (24 downto 0);
-signal ok : std_logic;
+signal lock : std_logic;
 
 begin
 
@@ -47,52 +47,43 @@ begin
 	if reset = '1' then
 
 		count<=(others => '0');
-		ok<='0';
+		lock<='0';
+		output<='0';
 	
 	elsif rising_edge (clock) then
 	
-		if enable ='1' then	--if button pressed
+		if bp ='1' AND lock='0' then	--if button pressed
 
-			if count < 500000 then	--wait 
+			if count < 500000 then	--wait to avoid bounding
 		
-			
-				count<=count + 1 ;
-				ok<='1';
-			
+				count<=count+1;
+				lock<='0';
+				output<='0';
 			else
-				ok<='1';
-				count<=(others => '0');
+				count<=count;
+				lock<='1';
+				output<='1';
 			
 			end if;
 		
-		else 
+		elsif bp='0' AND lock='1' then
 			
-			if count < 500000 then   -- not 5ms 
+				count<=(others => '0');
+				lock<='0';
+				output<='0';
 			
-				if count = 0 then  --stop_pressing 
-					count<=(others => '0');
-					ok<='0';	
-					
-				else -- if button was press
-					count<=count + 1 ;
-					ok<='1';
-					
-				end if;
-			
-			else
+		else
+
+				count<=count;
+				lock<=lock;
+				output<='0';
 				
-				count<=(others => '0');
-				ok<='0';			
-			end if;
-			
 		end if;
 
 	end if;
 
 	
 end process;
-
-output<=ok;
 
 end Behavioral;
 
