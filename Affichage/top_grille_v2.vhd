@@ -32,17 +32,14 @@ entity top_grille_test is
 				discover_bp : in  STD_LOGIC;
 				value : in STD_LOGIC_VECTOR (3 downto 0);
 				posx : in STD_LOGIC_VECTOR (3 downto 0);
-				posy : in STD_LOGIC_VECTOR (3 downto 0);
-				--en1 : in STD_LOGIC;
-				
-				LEDF : out STD_LOGIC_vector(5 downto 0);
-				
+				posy : in STD_LOGIC_VECTOR (3 downto 0);				
 				vga_hs : out  STD_LOGIC;
 				vga_vs : out  STD_LOGIC;
 				vga_red : out  STD_LOGIC_VECTOR (3 downto 0);
 				vga_green : out  STD_LOGIC_VECTOR (3 downto 0);
 				vga_blue : out  STD_LOGIC_VECTOR (3 downto 0);
-				data_out : out  STD_LOGIC_VECTOR (2 downto 0));
+				data_out : out  STD_LOGIC_VECTOR (2 downto 0);
+				en_end_one_bloc 	: out STD_LOGIC);
 end top_grille_test;
 
 architecture Behavioral of top_grille_test is
@@ -52,19 +49,19 @@ component VGA_bitmap_160x100 is
 
   generic(bit_per_pixel : integer range 1 to 12 := 3;    -- number of bits per pixel
           grayscale     : boolean := false);           -- should data be displayed in grayscale
-  port(clk          : in  std_logic;
-       reset        : in  std_logic;
+  port(clk          		: in  std_logic;
+       reset        		: in  std_logic;
 		 
-       VGA_hs       : out std_logic;   -- horisontal vga syncr.
-       VGA_vs       : out std_logic;   -- vertical vga syncr.
-       VGA_red      : out std_logic_vector(3 downto 0);   -- red output
-       VGA_green    : out std_logic_vector(3 downto 0);   -- green output
-       VGA_blue     : out std_logic_vector(3 downto 0);   -- blue output
+       VGA_hs       		: out std_logic;   -- horisontal vga syncr.
+       VGA_vs       		: out std_logic;   -- vertical vga syncr.
+       VGA_red      		: out std_logic_vector(3 downto 0);   -- red output
+       VGA_green    		: out std_logic_vector(3 downto 0);   -- green output
+       VGA_blue     		: out std_logic_vector(3 downto 0);   -- blue output
 
-       ADDR         : in  std_logic_vector(13 downto 0);
-       data_in      : in  std_logic_vector(bit_per_pixel - 1 downto 0);
-       data_write   : in  std_logic;
-       data_out     : out std_logic_vector(bit_per_pixel - 1 downto 0));
+       ADDR         		: in  std_logic_vector(13 downto 0);
+       data_in      		: in  std_logic_vector(bit_per_pixel - 1 downto 0);
+       data_write   		: in  std_logic;
+       data_out     		: out std_logic_vector(bit_per_pixel - 1 downto 0));
 end component VGA_bitmap_160x100;
 
 
@@ -122,7 +119,7 @@ component top_graph_mem is
 				en : in  STD_LOGIC;
 				line_chose : in STD_LOGIC_VECTOR (3 downto 0);
 				value : in STD_LOGIC_VECTOR (3 downto 0);
-
+				
 				line_data_out : out STD_LOGIC_VECTOR (8 downto 0);
 				color_data_out : out  STD_LOGIC_VECTOR (2 downto 0));
 end component top_graph_mem;
@@ -137,7 +134,7 @@ component states_machine_display is
 				cpt_col : in STD_LOGIC_VECTOR(3 downto 0);
 				discover_bp : in  STD_LOGIC;
 						
-				en_led_finish : out STD_LOGIC_vector(5 downto 0);
+				--en_led_finish : out STD_LOGIC_vector(5 downto 0);
 				en_discover_bloc : out  STD_LOGIC;
 				en_graph_memo : out  STD_LOGIC;
 				en_GRID : out STD_LOGIC;
@@ -145,7 +142,8 @@ component states_machine_display is
 				en_cpt_line: out  STD_LOGIC;
 				rst_cpt_line : out  STD_LOGIC;
 				en_cpt_col: out  STD_LOGIC;
-				rst_cpt_col : out  STD_LOGIC);
+				rst_cpt_col : out  STD_LOGIC;
+				en_end_one_bloc :out STD_LOGIC);
 				
 end component states_machine_display;				
 
@@ -194,8 +192,7 @@ gestion_affichage : VGA_bitmap_160x100 port map (  clk 			=> clk,
 																	data_out   	=> data_out);
 														
 
-mux_mem_vga : mux_vga port map ( --selection =>  en1,
-											selection =>  sig_en_mux_aff,
+mux_mem_vga : mux_vga port map ( selection =>  sig_en_mux_aff,
 											input_data_in_1 => sig_data_in_grille ,
 											input_data_in_2  => sig_data_in_dis ,
 											input_addr_1  => sig_ADDR_grille ,
@@ -267,21 +264,21 @@ Counter_line :   counter9_STD   port map(		clk => clk,
 															rst =>  sig_rst_cpt_line,
 															counterOut => sig_cpt_line);
 
-FMS_Graphic :   states_machine_display   port map(		clock => clk,
-																		reset => rst,
-																		cpt_line =>sig_cpt_line,
-																		cpt_col =>sig_cpt_col,
-																		discover_bp =>discover_bp,
+FMS_Graphic :   states_machine_display   port map(		clock 				=> clk,
+																		reset 				=> rst,
+																		cpt_line 			=>sig_cpt_line,
+																		cpt_col 				=>sig_cpt_col,
+																		discover_bp 		=>discover_bp,
 																		
-																		en_led_finish =>LEDF,
-																		en_discover_bloc=> sig_en_discover_bloc,
-																		en_graph_memo => sig_en_graph_memo ,
-																		en_GRID => sig_en_GRID,
-																		en_mux_aff =>sig_en_mux_aff ,
-																		en_cpt_line=> sig_en_cpt_line,
-																		rst_cpt_line =>sig_rst_cpt_line,
-																		en_cpt_col => sig_en_cpt_col,
-																		rst_cpt_col => sig_rst_cpt_col );
+																		en_discover_bloc	=> sig_en_discover_bloc,
+																		en_graph_memo 		=> sig_en_graph_memo ,
+																		en_GRID 				=> sig_en_GRID,
+																		en_mux_aff 			=>sig_en_mux_aff ,
+																		en_cpt_line			=> sig_en_cpt_line,
+																		rst_cpt_line 		=>sig_rst_cpt_line,
+																		en_cpt_col 			=> sig_en_cpt_col,
+																		rst_cpt_col 		=> sig_rst_cpt_col,
+																		en_end_one_bloc 	=> en_end_one_bloc);
 
 
 
