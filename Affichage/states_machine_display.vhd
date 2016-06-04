@@ -27,20 +27,21 @@ use ieee.numeric_std.all;
 --use UNISIM.VComponents.all;
 
 entity states_machine_display is
-    Port (	clock : in  STD_LOGIC;
-           	reset : in  STD_LOGIC;
-				cpt_line : in STD_LOGIC_VECTOR(3 downto 0);
-				cpt_col : in STD_LOGIC_VECTOR(3 downto 0);
-				discover_bp : in  STD_LOGIC;
-				en_mux_aff : out STD_LOGIC;
-				en_led_finish : out STD_LOGIC_vector (5 downto 0);
-				en_discover_bloc : out  STD_LOGIC;
-				en_graph_memo : out  STD_LOGIC;
-				en_GRID : out STD_LOGIC;
-				en_cpt_line: out  STD_LOGIC;
-				rst_cpt_line : out  STD_LOGIC;
-				en_cpt_col: out  STD_LOGIC;
-				rst_cpt_col : out  STD_LOGIC);			  
+    Port (	clock 				: in  STD_LOGIC;
+           	reset 				: in  STD_LOGIC;
+				cpt_line 			: in STD_LOGIC_VECTOR(3 downto 0);
+				cpt_col 				: in STD_LOGIC_VECTOR(3 downto 0);
+				discover_bp 		: in  STD_LOGIC;
+				en_mux_aff 			: out STD_LOGIC;
+				en_led_finish 		: out STD_LOGIC_vector (5 downto 0);
+				en_discover_bloc 	: out  STD_LOGIC;
+				en_graph_memo 		: out  STD_LOGIC;
+				en_GRID 				: out STD_LOGIC;
+				en_cpt_line			: out  STD_LOGIC;
+				rst_cpt_line 		: out  STD_LOGIC;
+				en_cpt_col			: out  STD_LOGIC;
+				rst_cpt_col 		: out  STD_LOGIC;
+				en_end_one_bloc 	: out STD_LOGIC);			  
 			 
 end states_machine_display;
 
@@ -160,6 +161,7 @@ process (actual_state)
 				en_cpt_col<='0';
 				rst_cpt_col <='1';
 				en_led_finish<="000011";
+				en_end_one_bloc<='1';
 
 			when grid =>
 
@@ -172,6 +174,7 @@ process (actual_state)
 				en_cpt_col<='0';
 				rst_cpt_col <='0';
 				en_led_finish<="000001";
+				en_end_one_bloc<='0';
 
 
 			when init_cpt =>
@@ -185,6 +188,7 @@ process (actual_state)
 				en_cpt_col<='0';
 				rst_cpt_col <='1';
 				en_led_finish<="000010";
+				en_end_one_bloc<='0';
 
 
 			when load_line =>
@@ -197,6 +201,7 @@ process (actual_state)
 				en_cpt_col<='0';
 				rst_cpt_col <='0';
 				en_led_finish<="000100";
+				en_end_one_bloc<='0';
 
 			when display_line =>
 
@@ -209,6 +214,7 @@ process (actual_state)
 				en_cpt_col<='0';
 				rst_cpt_col <='0';
 				en_led_finish<="001000";
+				en_end_one_bloc<='0';
 
 			when inc_line =>
 				en_discover_bloc<='0';
@@ -220,6 +226,7 @@ process (actual_state)
 				en_cpt_col<='0';
 				rst_cpt_col <='1';
 				en_led_finish<="010000";
+				en_end_one_bloc<='0';
 				
 			when inc_col =>
 				en_discover_bloc<='0';
@@ -232,6 +239,7 @@ process (actual_state)
 				en_cpt_col<='1';
 				rst_cpt_col <='0';
 				en_led_finish<="100000";
+				en_end_one_bloc<='0';
 
 
 			end case;
