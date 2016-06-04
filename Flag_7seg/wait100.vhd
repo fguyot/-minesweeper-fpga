@@ -15,7 +15,7 @@ end wait100;
 
 architecture Behavioral of wait100 is
 
-signal outTmpSig : integer;
+signal outTmpSig : integer range 0 to 100 := 0;
 
 begin
 

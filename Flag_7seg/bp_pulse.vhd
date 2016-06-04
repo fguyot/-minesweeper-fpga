@@ -36,7 +36,7 @@ end bp_pulse;
 
 architecture Behavioral of bp_pulse is
 
-signal count : unsigned (24 downto 0);
+signal count : unsigned (18 downto 0);
 signal lock : std_logic;
 
 begin

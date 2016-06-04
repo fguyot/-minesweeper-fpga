@@ -38,7 +38,6 @@ begin
 		begin
 		
 			if (rst = '1') then
-
 				output_tmp<=(others => '0');
 				
 			elsif rising_edge(clk) then

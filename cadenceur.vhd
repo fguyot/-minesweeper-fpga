@@ -32,7 +32,7 @@ end cadenceur;
 architecture Behavioral of cadenceur is
 
 			  signal sig_CCEn : unsigned  (23 downto 0);
-          		  signal sig_MuxAffEn : unsigned(18 downto 0);
+          		  signal sig_MuxAffEn : unsigned(17 downto 0);
 			  
 			  signal sig_en_CCEn : std_logic;
 			  signal sig_en_MuxAffEn : std_logic;

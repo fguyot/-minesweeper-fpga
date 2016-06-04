@@ -40,7 +40,6 @@ entity top_demineur_V1 is
 				down 				: in  STD_LOGIC;
 				discover_bp 	: in  STD_LOGIC;
 				
-				en1				: in STD_LOGIC;
 				flag_bp			: in STD_LOGIC;
 				CE_env			: in STD_LOGIC;
 				
@@ -86,7 +85,6 @@ component top_grille_test is
 						value : in STD_LOGIC_VECTOR (3 downto 0);
 						posx : in STD_LOGIC_VECTOR (3 downto 0);
 						posy : in STD_LOGIC_VECTOR (3 downto 0);
-						--en1				: in STD_LOGIC;
 						--LEDF : out STD_LOGIC_VECTOR (5 downto 0);
 						vga_hs : out  STD_LOGIC;
 						vga_vs : out  STD_LOGIC;
@@ -243,7 +241,6 @@ display_control : top_grille_test port map (  	clk => clk ,
 																value => sig_data_to_display,
 																posx =>  sig_pos_lr,
 																posy =>  sig_pos_ud,
-																--en1 => en1,
 																--LEDF => LEDF,
 																vga_hs =>  vga_hs,
 																vga_vs => vga_vs ,
