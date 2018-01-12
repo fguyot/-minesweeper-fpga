@@ -1,4 +1,4 @@
-This project implement a minesweeper in VHDL using a Xilink Nexys3 board. 
+This project implement a minesweeper in VHDL using a Xilinx Nexys3 board. 
 
 
 ![alt text](https://reference.digilentinc.com/_media/reference/programmable-logic/nexys-3/nexys-3-0.png)
