@@ -1,3 +1,9 @@
-We created this project for a school FPGA project. 
+This project implement a minesweeper in VHDL using a Xilink Nexys3 board. 
 
-The project are designed for a Xilink NEXIS3, it uses the VGA port to display the gameplay on a screen.
+
+![alt text](https://reference.digilentinc.com/_media/reference/programmable-logic/nexys-3/nexys-3-0.png)
+
+
+It was created for the project PR209 at ENSEIRB (Bordeaux INP). 
+
+The gameplay is displayed on a screen using a VGA port.
